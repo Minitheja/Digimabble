@@ -444,6 +444,17 @@ ul {
   font-size: 11px;
 }
 
+.header-mobile-actions {
+  display: none;
+  align-items: center;
+  gap: 16px;
+  z-index: 101;
+}
+
+.lang-selector-header {
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -1939,8 +1950,18 @@ ul {
   }
 
   /* Collapse Navigation Menu to Hamburger Drawer */
+  .header-mobile-actions {
+    display: flex;
+  }
+
   .menu-toggle {
     display: flex;
+  }
+
+  .nav-menu.open ~ .header-mobile-actions .lang-selector-header {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
   }
 
   .nav-actions {
@@ -1949,10 +1970,6 @@ ul {
 
   .lang-selector-desktop {
     display: none;
-  }
-
-  .lang-selector-mobile {
-    display: block;
   }
 
   .nav-menu {
@@ -1968,6 +1985,7 @@ ul {
     transition: right var(--transition-normal);
     overflow-y: auto;
     z-index: 100;
+    gap: 0; /* Remove horizontal desktop gap for vertical column spacing */
   }
 
   .nav-menu.open {
@@ -2036,7 +2054,8 @@ ul {
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
   }
-  .section-title {
+  .section-title,
+  .tech-title {
     font-size: 34px;
   }
   .marquee-container {
@@ -2115,8 +2134,12 @@ ul {
     gap: 24px;
   }
   .section-title,
-  .partners-title {
+  .partners-title,
+  .tech-title {
     font-size: 30px;
+  }
+  .tech-title {
+    margin-bottom: 20px;
   }
   .section-subtitle {
     font-size: 15px;
