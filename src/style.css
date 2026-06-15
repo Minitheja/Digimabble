@@ -1465,7 +1465,7 @@ ul {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 80px;
+  gap: 40px;
   position: relative;
   overflow: hidden;
   padding: 10px 0;
@@ -1514,8 +1514,8 @@ ul {
   align-items: center;
   justify-content: center;
   gap: 0;
-  width: 260px;
-  height: 140px;
+  width: 200px;
+  height: 100px;
   padding: 0;
   color: var(--color-secondary);
   transition: all var(--transition-fast);
@@ -1793,8 +1793,8 @@ ul {
 .partner-card {
   background: #ffffff;
   border-radius: 16px;
-  width: 280px;
-  height: 125px;
+  width: 220px;
+  height: 100px;
   padding: 16px;
   display: flex;
   align-items: center;
@@ -2039,6 +2039,13 @@ ul {
   .section-title {
     font-size: 34px;
   }
+  .marquee-container {
+    gap: 28px;
+  }
+  .marquee-item {
+    width: 140px;
+    height: 75px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -2118,10 +2125,21 @@ ul {
     font-size: 14px;
   }
   .partner-card {
-    width: 220px;
-    height: 100px;
-    border-radius: 12px;
-    padding: 12px;
+    width: 150px;
+    height: 75px;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .marquee-container {
+    gap: 16px;
+  }
+  .marquee-item {
+    width: 110px;
+    height: 55px;
+  }
+  .marquee-item img,
+  .marquee-item svg {
+    padding: 4px;
   }
   .mockup-body {
     height: 320px;
