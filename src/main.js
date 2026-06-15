@@ -1,5 +1,76 @@
+import { translations } from './translations.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   
+  // --- Translation Engine ---
+  const getTranslation = (obj, path) => {
+    return path.split('.').reduce((acc, part) => acc && acc[part], obj);
+  };
+
+  const setLanguage = (lang) => {
+    if (!translations[lang]) return;
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+
+    // Update SEO title
+    if (translations[lang].seo && translations[lang].seo.title) {
+      document.title = translations[lang].seo.title;
+    }
+
+    // Update SEO description
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc && translations[lang].seo && translations[lang].seo.desc) {
+      metaDesc.setAttribute('content', translations[lang].seo.desc);
+    }
+
+    // Translate standard text elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      const translation = getTranslation(translations[lang], key);
+      if (translation !== undefined) {
+        el.textContent = translation;
+      }
+    });
+
+    // Translate placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const translation = getTranslation(translations[lang], key);
+      if (translation !== undefined) {
+        el.setAttribute('placeholder', translation);
+      }
+    });
+
+    // Sync dropdowns
+    document.querySelectorAll('.lang-select').forEach(select => {
+      select.value = lang;
+    });
+
+    // Persist language
+    localStorage.setItem('lang', lang);
+  };
+
+  // Bind change event to all language selectors
+  document.querySelectorAll('.lang-select').forEach(select => {
+    select.addEventListener('change', (e) => {
+      setLanguage(e.target.value);
+    });
+  });
+
+  // Determine initial language
+  const savedLang = localStorage.getItem('lang');
+  let defaultLang = 'en';
+  if (savedLang) {
+    defaultLang = savedLang;
+  } else {
+    const browserLang = navigator.language.slice(0, 2);
+    if (translations[browserLang]) {
+      defaultLang = browserLang;
+    }
+  }
+  setLanguage(defaultLang);
+
   // --- Header Scroll Effect ---
   const header = document.querySelector('.site-header');
   const handleScroll = () => {
@@ -205,14 +276,44 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Simple client-side feedback transition
       const submitBtn = contactForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.textContent;
-      submitBtn.textContent = 'Processing request...';
+      
+      const currentLang = document.documentElement.lang || 'en';
+      const msgMap = {
+        en: {
+          processing: 'Processing request...',
+          submitted: 'Request Submitted',
+          success: `Thank you, ${name}. Your request for "${product}" evaluation has been received. Our Enterprise Solutions Team will contact you at ${email} within 24 hours.`
+        },
+        fr: {
+          processing: 'Traitement de la demande...',
+          submitted: 'Demande envoyée',
+          success: `Merci, ${name}. Votre demande d'évaluation de "${product}" a été reçue. Notre équipe de solutions d'entreprise vous contactera à ${email} dans les 24 heures.`
+        },
+        nl: {
+          processing: 'Aanvraag verwerken...',
+          submitted: 'Aanvraag verzonden',
+          success: `Dank je, ${name}. Je aanvraag voor "${product}"-evaluatie is ontvangen. Ons Enterprise Solutions-team neemt binnen 24 uur contact met je op via ${email}.`
+        },
+        es: {
+          processing: 'Procesando solicitud...',
+          submitted: 'Solicitud enviada',
+          success: `Gracias, ${name}. Su solicitud de evaluación de "${product}" ha sido recibida. Nuestro equipo de soluciones empresariales se comunicará con usted en ${email} dentro de las 24 horas.`
+        },
+        pl: {
+          processing: 'Przetwarzanie zapytania...',
+          submitted: 'Zapytanie wysłane',
+          success: `Dziękujemy, ${name}. Twoje zgłoszenie o ocenę "${product}" zostało odebrane. Nasz zespół Enterprise Solutions skontaktuje się z Tobą pod adresem ${email} w ciągu 24 godzin.`
+        }
+      };
+      const langMsgs = msgMap[currentLang] || msgMap.en;
+
+      submitBtn.textContent = langMsgs.processing;
       submitBtn.disabled = true;
 
       setTimeout(() => {
-        submitBtn.textContent = 'Request Submitted';
+        submitBtn.textContent = langMsgs.submitted;
         formStatus.className = 'form-status success';
-        formStatus.textContent = `Thank you, ${name}. Your request for "${product}" evaluation has been received. Our Enterprise Solutions Team will contact you at ${email} within 24 hours.`;
+        formStatus.textContent = langMsgs.success;
         contactForm.reset();
       }, 1500);
     });

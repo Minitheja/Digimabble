@@ -1927,3 +1927,51 @@ ul {
     transform: translateX(calc(-50% - 16px)); /* Loop seamlessly by shifting half track width including gap adjustment */
   }
 }
+
+/* --- Language Selector --- */
+.lang-select {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  border-radius: 9999px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-primary);
+  color: var(--color-secondary);
+  cursor: pointer;
+  outline: none;
+  transition: all var(--transition-fast);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23001363'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px;
+  padding-right: 28px;
+  text-transform: uppercase;
+}
+
+.lang-select:hover {
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 8px rgba(0, 19, 99, 0.05);
+}
+
+.lang-selector-desktop {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.lang-selector-mobile {
+  display: none;
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .lang-selector-desktop {
+    display: none;
+  }
+  .lang-selector-mobile {
+    display: block;
+  }
+}
