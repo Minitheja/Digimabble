@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Close menu when a link is clicked
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.nav-menu a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
         const spans = menuToggle.querySelectorAll('span');

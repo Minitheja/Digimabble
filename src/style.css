@@ -1967,11 +1967,60 @@ ul {
   text-align: left;
 }
 
+.nav-actions-mobile {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .trust-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
 @media (max-width: 768px) {
   .lang-selector-desktop {
     display: none;
   }
   .lang-selector-mobile {
     display: block;
+  }
+  .nav-menu {
+    overflow-y: auto;
+    z-index: 100;
+  }
+  .nav-actions-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+  }
+  .nav-actions-mobile .nav-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+  .trust-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .section-title,
+  .partners-title {
+    font-size: 30px;
+  }
+  .section-subtitle {
+    font-size: 15px;
+  }
+  .partners-subtitle {
+    font-size: 14px;
+  }
+  .partner-card {
+    width: 220px;
+    height: 100px;
+    border-radius: 12px;
+    padding: 12px;
   }
 }
