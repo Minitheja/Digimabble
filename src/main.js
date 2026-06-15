@@ -88,17 +88,35 @@ document.addEventListener('DOMContentLoaded', () => {
   const navMenu = document.querySelector('.nav-menu');
   
   if (menuToggle && navMenu) {
+    // Create mobile menu overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'nav-overlay';
+    document.body.appendChild(overlay);
+
+    const toggleScrollLock = (shouldLock) => {
+      if (shouldLock) {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+        document.documentElement.style.overflow = '';
+      }
+    };
+
     menuToggle.addEventListener('click', () => {
       navMenu.classList.toggle('open');
+      overlay.classList.toggle('active');
       const spans = menuToggle.querySelectorAll('span');
       if (navMenu.classList.contains('open')) {
         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
         spans[1].style.opacity = '0';
         spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        toggleScrollLock(true);
       } else {
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
+        toggleScrollLock(false);
       }
     });
 
@@ -106,11 +124,24 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.nav-menu a').forEach(link => {
       link.addEventListener('click', () => {
         navMenu.classList.remove('open');
+        overlay.classList.remove('active');
+        toggleScrollLock(false);
         const spans = menuToggle.querySelectorAll('span');
         spans[0].style.transform = 'none';
         spans[1].style.opacity = '1';
         spans[2].style.transform = 'none';
       });
+    });
+
+    // Close menu when overlay is clicked
+    overlay.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      overlay.classList.remove('active');
+      toggleScrollLock(false);
+      const spans = menuToggle.querySelectorAll('span');
+      spans[0].style.transform = 'none';
+      spans[1].style.opacity = '1';
+      spans[2].style.transform = 'none';
     });
   }
 
