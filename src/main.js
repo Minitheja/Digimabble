@@ -303,7 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
       // Gather data
       const name = document.getElementById('cf-name').value;
       const email = document.getElementById('cf-email').value;
-      const product = document.getElementById('cf-product').value;
+      const productSelect = document.getElementById('cf-product');
+      const product = productSelect.options[productSelect.selectedIndex].text;
       
       // Simple client-side feedback transition
       const submitBtn = contactForm.querySelector('button[type="submit"]');

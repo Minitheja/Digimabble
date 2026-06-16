@@ -1897,12 +1897,36 @@ ul {
   pointer-events: auto;
 }
 
+/* --- Medium Desktop Spacing (Defensive design for longer translated texts like French) --- */
+@media (min-width: 1025px) and (max-width: 1300px) {
+  .nav-menu {
+    gap: 16px;
+  }
+  .nav-actions {
+    gap: 8px;
+  }
+  .nav-btn {
+    padding: 8px 14px;
+    font-size: 10px;
+  }
+  .nav-link {
+    font-size: 13px;
+  }
+  .products-layout {
+    gap: 24px;
+  }
+}
+
 /* --- Mobile Responsiveness --- */
 @media (max-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 48px;
     text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
   }
 
   .hero-btns {
@@ -1924,6 +1948,8 @@ ul {
     padding-bottom: 8px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin: 0 -24px;
+    padding: 0 24px 8px;
   }
   .products-nav::-webkit-scrollbar {
     display: none;
@@ -1970,6 +1996,10 @@ ul {
 
   .lang-selector-desktop {
     display: none;
+  }
+
+  .lang-selector-mobile {
+    display: block;
   }
 
   .nav-menu {
@@ -2034,6 +2064,7 @@ ul {
     padding-bottom: 8px;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    margin: 0 -24px;
   }
 
   .usecases-tabs-wrapper::-webkit-scrollbar {
@@ -2043,7 +2074,8 @@ ul {
   .usecases-tabs {
     display: flex;
     width: max-content;
-    margin: 0 auto;
+    margin: 0;
+    padding: 0 24px;
   }
 
   .uc-tab {
@@ -2175,13 +2207,28 @@ ul {
     padding: 24px 16px;
     min-height: auto;
   }
+  .prod-view-header {
+    margin-bottom: 16px;
+    gap: 12px;
+  }
+  .prod-view-title {
+    font-size: 20px;
+  }
+  .prod-view-desc {
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
   .prod-view-details {
     grid-template-columns: 1fr;
     gap: 16px;
+    margin-bottom: 20px;
   }
   .prod-view-meta {
     flex-wrap: wrap;
     gap: 16px;
+  }
+  .prod-view-footer {
+    padding-top: 16px;
   }
   /* Use Cases mobile adjustments */
   .uc-visual {
@@ -2236,5 +2283,23 @@ ul {
     transform: none;
     box-shadow: var(--shadow-sm);
     border-color: var(--border-color);
+  }
+}
+
+/* --- Extra Small Mobile Devices Spacing (AI Products Footer Optimization) --- */
+@media (max-width: 480px) {
+  .prod-view-meta {
+    gap: 12px;
+    width: 100%;
+    justify-content: space-between;
+  }
+  .prod-view-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  .prod-view-footer .btn {
+    width: 100%;
+    text-align: center;
   }
 }
