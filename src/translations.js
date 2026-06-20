@@ -221,7 +221,7 @@ export const translations = {
       link_refund: "Refund Policy",
       gdpr: "GDPR Compliance",
       sla: "SLA Agreement",
-      copy: "&copy; 2026 Digimabble AI. All rights reserved."
+      copy: "© Copyright 2025, All Rights Reserved by DigiMabble"
     }
   },
   fr: {
@@ -338,10 +338,10 @@ export const translations = {
       tag: "Mise en œuvre sectorielle",
       title: "Flux de travail IA en action",
       subtitle: "Découvrez comment nos agents IA permettent aux équipes d'optimiser leur vitesse d'exécution et de réduire leurs coûts.",
-      tab1: "Automats financiers",
-      tab2: "Flux de santé",
-      tab3: "Opérations e-commerce",
-      tab4: "Opérations internes",
+      tab1: "🏦 Automats financiers",
+      tab2: "🏥 Flux de santé",
+      tab3: "🛒 Opérations e-commerce",
+      tab4: "🏢 Opérations internes",
       finance_title: "Préparation d'audit & Deal Flow automatisés",
       finance_desc: "Déployez des auditeurs IA conformes qui examinent en continu les transactions bancaires et préparent les rapports d'audit réglementaires.",
       finance_metric: "Réduction de 80% du temps de préparation des rapports grâce aux agents de conformité.",
@@ -446,7 +446,7 @@ export const translations = {
       link_refund: "Politique de remboursement",
       gdpr: "Conformité RGPD",
       sla: "Accord de Niveau de Service (SLA)",
-      copy: "&copy; 2026 Digimabble AI. Tous droits réservés."
+      copy: "© Copyright 2025, Tous droits réservés par DigiMabble"
     }
   },
   nl: {
@@ -563,10 +563,10 @@ export const translations = {
       tag: "Sector Implementatie",
       title: "AI Workflows in Actie",
       subtitle: "Zie hoe enterprise teams operationele snelheid verhogen en kosten verlagen met onze AI-agenten.",
-      tab1: "Financiële Automatisering",
-      tab2: "Zorg Workflows",
-      tab3: "E-Commerce Operations",
-      tab4: "Interne Bedrijfsprocessen",
+      tab1: "🏦 Financiële Automatisering",
+      tab2: "🏥 Zorg Workflows",
+      tab3: "🛒 E-Commerce Operations",
+      tab4: "🏢 Interne Bedrijfsprocessen",
       finance_title: "Geautomatiseerde Audit Prep & Deal Flow",
       finance_desc: "Zet compliance-agenten in die transacties controleren op basis van wet- en regelgeving, en automatisch auditrapporten opstellen.",
       finance_metric: "Verminder de voorbereidingstijd voor auditrapportage met 80% via slimme compliance-agenten.",
@@ -671,7 +671,7 @@ export const translations = {
       link_refund: "Retourbeleid",
       gdpr: "AVG-naleving",
       sla: "SLA Overeenkomst",
-      copy: "&copy; 2026 Digimabble AI. Alle rechten voorbehouden."
+      copy: "© Copyright 2025, Alle rechten voorbehouden door DigiMabble"
     }
   },
   es: {
@@ -788,10 +788,10 @@ export const translations = {
       tag: "Implementación en la industria",
       title: "Flujos de trabajo de IA en acción",
       subtitle: "Vea cómo los equipos empresariales aceleran sus operaciones y reducen costos fijos con nuestros agentes de IA.",
-      tab1: "Automatización financiera",
-      tab2: "Flujos médicos",
-      tab3: "Operaciones e-commerce",
-      tab4: "Operaciones internas",
+      tab1: "🏦 Automatización financiera",
+      tab2: "🏥 Flujos médicos",
+      tab3: "🛒 Operaciones e-commerce",
+      tab4: "🏢 Operaciones internas",
       finance_title: "Auditoría automatizada y Deal Flow comercial",
       finance_desc: "Despliegue oficiales de cumplimiento de IA que revisen transacciones en tiempo real bajo normativas vigentes, elaborando informes de auditoría listos para su uso.",
       finance_metric: "Reduzca el tiempo de preparación de auditorías regulatorias en un 80% usando agentes autónomos.",
@@ -896,7 +896,7 @@ export const translations = {
       link_refund: "Política de reembolso",
       gdpr: "Conformidad RGPD",
       sla: "Acuerdo de Nivel de Servicio (SLA)",
-      copy: "&copy; 2026 Digimabble AI. Todos los derechos reservados."
+      copy: "© Copyright 2025, Todos los derechos reservados por DigiMabble"
     }
   },
   pl: {
@@ -1013,10 +1013,10 @@ export const translations = {
       tag: "Wdrożenia branżowe",
       title: "Procesy AI w Praktyce",
       subtitle: "Zobacz, jak zespoły operacyjne optymalizują czas pracy i obniżają koszty dzięki naszym agentom AI.",
-      tab1: "Automatyzacja finansów",
-      tab2: "Przepływy w medycynie",
-      tab3: "Operacje e-commerce",
-      tab4: "Operacje wewnętrzne",
+      tab1: "🏦 Automatyzacja finansów",
+      tab2: "🏥 Przepływy w medycynie",
+      tab3: "🛒 Operacje e-commerce",
+      tab4: "🏢 Operacje wewnętrzne",
       finance_title: "Automatyczne Przygotowanie Audytu & Deal Flow",
       finance_desc: "Wdrażaj agentów AI, którzy na bieżąco analizują zapisy w księgach pod kątem zgodności z przepisami, przygotowując raporty audytowe.",
       finance_metric: "Skróć czas przygotowania raportów zgodności o 80% dzięki autonomicznym agentom AI.",
@@ -1121,7 +1121,7 @@ export const translations = {
       link_refund: "Polityka zwrotów",
       gdpr: "Zgodność z RODO",
       sla: "Umowa SLA",
-      copy: "&copy; 2026 Digimabble AI. Wszelkie prawa zastrzeżone."
+      copy: "© Copyright 2025, Wszelkie prawa zastrzeżone przez DigiMabble"
     }
   }
 };
