@@ -261,8 +261,8 @@ export default function App() {
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
           <a href="#" className="logo" onClick={() => setActiveSection('')}>
-            <img src="/src/assets/logo-colored.png" alt="DIGI MABBLE Logo" className="logo-img logo-colored" />
-            <img src="/src/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img logo-white" />
+            <img src="/assets/logo-colored.png" alt="DIGI MABBLE Logo" className="logo-img logo-colored" />
+            <img src="/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img logo-white" />
           </a>
 
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
@@ -368,50 +368,50 @@ export default function App() {
           <div className="marquee-container">
             {/* Row 1 (Scrolls Left) */}
             <div className="marquee-track track-1">
-              <div className="marquee-item perplexity-item"><img src="/src/assets/perplexity.png" alt="Perplexity" /></div>
-              <div className="marquee-item n8n-item"><img src="/src/assets/n8n-logo.png" alt="n8n" /></div>
-              <div className="marquee-item elevenlabs-item"><img src="/src/assets/elevenlabs.png" alt="ElevenLabs" /></div>
-              <div className="marquee-item whatsapp-item"><img src="/src/assets/whatsapp.png" alt="WhatsApp" /></div>
-              <div className="marquee-item apify-item"><img src="/src/assets/apify-logo.png" alt="Apify" /></div>
-              <div className="marquee-item chatgpt-item"><img src="/src/assets/chatgpt.png" alt="ChatGPT" /></div>
-              <div className="marquee-item claude-item"><img src="/src/assets/claude.png" alt="Claude" /></div>
-              <div className="marquee-item gemini-item"><img src="/src/assets/gemini.png" alt="Gemini" /></div>
-              <div className="marquee-item copilot-item"><img src="/src/assets/copilot.png" alt="Microsoft Copilot" /></div>
+              <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
+              <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
+              <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
+              <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
+              <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
+              <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
+              <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
+              <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
+              <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
 
               {/* Duplicates */}
-              <div className="marquee-item perplexity-item"><img src="/src/assets/perplexity.png" alt="Perplexity" /></div>
-              <div className="marquee-item n8n-item"><img src="/src/assets/n8n-logo.png" alt="n8n" /></div>
-              <div className="marquee-item elevenlabs-item"><img src="/src/assets/elevenlabs.png" alt="ElevenLabs" /></div>
-              <div className="marquee-item whatsapp-item"><img src="/src/assets/whatsapp.png" alt="WhatsApp" /></div>
-              <div className="marquee-item apify-item"><img src="/src/assets/apify-logo.png" alt="Apify" /></div>
-              <div className="marquee-item chatgpt-item"><img src="/src/assets/chatgpt.png" alt="ChatGPT" /></div>
-              <div className="marquee-item claude-item"><img src="/src/assets/claude.png" alt="Claude" /></div>
-              <div className="marquee-item gemini-item"><img src="/src/assets/gemini.png" alt="Gemini" /></div>
-              <div className="marquee-item copilot-item"><img src="/src/assets/copilot.png" alt="Microsoft Copilot" /></div>
+              <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
+              <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
+              <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
+              <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
+              <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
+              <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
+              <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
+              <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
+              <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
             </div>
 
             {/* Row 2 (Scrolls Right) */}
             <div className="marquee-track track-2">
-              <div className="marquee-item figma-item"><img src="/src/assets/figma.png" alt="Figma" /></div>
-              <div className="marquee-item canva-item"><img src="/src/assets/canva-ai.png" alt="Canva AI" /></div>
-              <div className="marquee-item adobe-item"><img src="/src/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
-              <div className="marquee-item midjourney-item"><img src="/src/assets/midjourney.png" alt="Midjourney" /></div>
-              <div className="marquee-item retell-item"><img src="/src/assets/retell-ai.png" alt="Retell AI" /></div>
-              <div className="marquee-item topaz-item"><img src="/src/assets/topaz.png" alt="Topaz Labs" /></div>
-              <div className="marquee-item airtable-item"><img src="/src/assets/airtable.png" alt="Airtable" /></div>
-              <div className="marquee-item remini-item"><img src="/src/assets/remini.png" alt="Remini" /></div>
-              <div className="marquee-item trello-item"><img src="/src/assets/trello.png" alt="Trello" /></div>
+              <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
+              <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
+              <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
+              <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
+              <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
+              <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
+              <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
+              <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
+              <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
 
               {/* Duplicates */}
-              <div className="marquee-item figma-item"><img src="/src/assets/figma.png" alt="Figma" /></div>
-              <div className="marquee-item canva-item"><img src="/src/assets/canva-ai.png" alt="Canva AI" /></div>
-              <div className="marquee-item adobe-item"><img src="/src/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
-              <div className="marquee-item midjourney-item"><img src="/src/assets/midjourney.png" alt="Midjourney" /></div>
-              <div className="marquee-item retell-item"><img src="/src/assets/retell-ai.png" alt="Retell AI" /></div>
-              <div className="marquee-item topaz-item"><img src="/src/assets/topaz.png" alt="Topaz Labs" /></div>
-              <div className="marquee-item airtable-item"><img src="/src/assets/airtable.png" alt="Airtable" /></div>
-              <div className="marquee-item remini-item"><img src="/src/assets/remini.png" alt="Remini" /></div>
-              <div className="marquee-item trello-item"><img src="/src/assets/trello.png" alt="Trello" /></div>
+              <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
+              <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
+              <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
+              <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
+              <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
+              <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
+              <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
+              <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
+              <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
             </div>
           </div>
         </div>
@@ -901,7 +901,7 @@ export default function App() {
           <div className="trust-grid">
             <div className="trust-interactive-card">
               <div className="trust-image-wrapper logo-wrapper">
-                <img src="/src/assets/venue-amore-logo.png" alt="Venue Amore Integration" />
+                <img src="/assets/venue-amore-logo.png" alt="Venue Amore Integration" />
               </div>
               <div className="trust-content-wrapper">
                 <h3>{t('trust.card1_name')}</h3>
@@ -911,7 +911,7 @@ export default function App() {
 
             <div className="trust-interactive-card">
               <div className="trust-image-wrapper">
-                <img src="/src/assets/trust_abstract_cool_1781364072363.png" alt="Enterprise Analytics" />
+                <img src="/assets/trust_abstract_cool_1781364072363.png" alt="Enterprise Analytics" />
               </div>
               <div className="trust-content-wrapper">
                 <h3>{t('trust.card2_name')}</h3>
@@ -921,7 +921,7 @@ export default function App() {
 
             <div className="trust-interactive-card">
               <div className="trust-image-wrapper">
-                <img src="/src/assets/trust_abstract_dynamic_1781364086355.png" alt="Customer Experience" />
+                <img src="/assets/trust_abstract_dynamic_1781364086355.png" alt="Customer Experience" />
               </div>
               <div className="trust-content-wrapper">
                 <h3>{t('trust.card3_name')}</h3>
@@ -942,18 +942,18 @@ export default function App() {
 
           <div className="partners-marquee-container">
             <div className="partners-marquee-track">
-              <div className="partner-card"><img src="/src/assets/anima_corpus.png" alt="Anima Corpus" /></div>
-              <div className="partner-card"><img src="/src/assets/3m.png" alt="3M Invest" /></div>
-              <div className="partner-card"><img src="/src/assets/client.png" alt="Agoria" /></div>
-              <div className="partner-card"><img src="/src/assets/madello-logo.png" alt="Madello" /></div>
-              <div className="partner-card"><img src="/src/assets/BECI-.png" alt="Beci" /></div>
+              <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
+              <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
+              <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
+              <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
+              <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
 
               {/* Duplicates */}
-              <div className="partner-card"><img src="/src/assets/anima_corpus.png" alt="Anima Corpus" /></div>
-              <div className="partner-card"><img src="/src/assets/3m.png" alt="3M Invest" /></div>
-              <div className="partner-card"><img src="/src/assets/client.png" alt="Agoria" /></div>
-              <div className="partner-card"><img src="/src/assets/madello-logo.png" alt="Madello" /></div>
-              <div className="partner-card"><img src="/src/assets/BECI-.png" alt="Beci" /></div>
+              <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
+              <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
+              <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
+              <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
+              <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
             </div>
           </div>
         </div>
@@ -1102,7 +1102,7 @@ export default function App() {
         <div className="container footer-grid">
           <div className="footer-brand">
             <a href="#" className="logo mb-2">
-              <img src="/src/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img" />
+              <img src="/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img" />
             </a>
             <p>{t('footer.desc')}</p>
             <div className="social-links">
