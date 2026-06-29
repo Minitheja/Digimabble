@@ -272,11 +272,11 @@ export default function App() {
             <a href="#faq" className={`nav-link ${activeSection === 'faq' ? 'active' : ''}`} onClick={() => { setActiveSection('faq'); setIsMobileMenuOpen(false); }}>{t('nav.faq')}</a>
             <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={() => { setActiveSection('testimonials'); setIsMobileMenuOpen(false); }}>{t('nav.trust')}</a>
             <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }}>{t('nav.contact')}</a>
-            
+
             <div className="nav-actions-mobile">
               <a href="#contact" className="btn btn-primary nav-btn" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.call')}</a>
             </div>
-            
+
             <div className="lang-selector-mobile">
               <select className="lang-select mobile-lang-select" aria-label="Select Language" value={lang} onChange={(e) => setLang(e.target.value)}>
                 <option value="en">EN</option>
@@ -519,8 +519,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -560,8 +560,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -601,8 +601,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -642,8 +642,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -683,8 +683,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -724,8 +724,8 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
               </div>
@@ -915,7 +915,7 @@ export default function App() {
             <span className="section-tag">{t('trust.tag')}</span>
             <h2 className="section-title">{t('trust.title')}</h2>
           </div>
-          
+
           <div className="trust-grid">
             <div className="trust-interactive-card">
               <div className="trust-image-wrapper logo-wrapper">
@@ -993,9 +993,9 @@ export default function App() {
                   <h3 className="faq-question">{t(`faq.q${index + 1}`)}</h3>
                   <span className="faq-icon">{activeFaqIndex === index ? '-' : '+'}</span>
                 </div>
-                <div 
-                  className="faq-body" 
-                  style={{ 
+                <div
+                  className="faq-body"
+                  style={{
                     maxHeight: activeFaqIndex === index ? '250px' : '0px',
                     transition: 'max-height 0.35s ease'
                   }}
@@ -1041,11 +1041,11 @@ export default function App() {
               <div className="form-row">
                 <div className="form-group">
                   <label className="form-label" htmlFor="cf-name">{t('contact.label_name')}</label>
-                  <input 
-                    className="form-input" 
-                    type="text" 
-                    id="cf-name" 
-                    required 
+                  <input
+                    className="form-input"
+                    type="text"
+                    id="cf-name"
+                    required
                     placeholder={t('contact.ph_name')}
                     value={formData.name}
                     onChange={handleInputChange}
@@ -1053,11 +1053,11 @@ export default function App() {
                 </div>
                 <div className="form-group">
                   <label className="form-label" htmlFor="cf-email">{t('contact.label_email')}</label>
-                  <input 
-                    className="form-input" 
-                    type="email" 
-                    id="cf-email" 
-                    required 
+                  <input
+                    className="form-input"
+                    type="email"
+                    id="cf-email"
+                    required
                     placeholder={t('contact.ph_email')}
                     value={formData.email}
                     onChange={handleInputChange}
@@ -1067,11 +1067,11 @@ export default function App() {
               <div className="form-row">
                 <div className="form-group">
                   <label className="form-label" htmlFor="cf-company">{t('contact.label_company')}</label>
-                  <input 
-                    className="form-input" 
-                    type="text" 
-                    id="cf-company" 
-                    required 
+                  <input
+                    className="form-input"
+                    type="text"
+                    id="cf-company"
+                    required
                     placeholder={t('contact.ph_company')}
                     value={formData.company}
                     onChange={handleInputChange}
@@ -1079,9 +1079,9 @@ export default function App() {
                 </div>
                 <div className="form-group">
                   <label className="form-label" htmlFor="cf-product">{t('contact.label_product')}</label>
-                  <select 
-                    className="form-select" 
-                    id="cf-product" 
+                  <select
+                    className="form-select"
+                    id="cf-product"
                     required
                     value={formData.product}
                     onChange={handleInputChange}
@@ -1097,9 +1097,9 @@ export default function App() {
               </div>
               <div className="form-group form-group-full">
                 <label className="form-label" htmlFor="cf-message">{t('contact.label_message')}</label>
-                <textarea 
-                  className="form-textarea" 
-                  id="cf-message" 
+                <textarea
+                  className="form-textarea"
+                  id="cf-message"
                   placeholder={t('contact.ph_msg')}
                   value={formData.message}
                   onChange={handleInputChange}
