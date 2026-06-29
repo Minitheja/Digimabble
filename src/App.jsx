@@ -100,7 +100,7 @@ export default function App() {
   ] : [{}, {}, {}];
 
   // --- Interactive Switchers ---
-  const [activeProductTab, setActiveProductTab] = useState('prod-chatbot');
+  const [activeProductTab, setActiveProductTab] = useState('prod-crm');
   const [activeUseCaseTab, setActiveUseCaseTab] = useState('uc-finance');
   const [activeFaqIndex, setActiveFaqIndex] = useState(null);
 
@@ -456,38 +456,54 @@ export default function App() {
           </div>
 
           <div className="products-layout">
-            <div className="products-nav">
-              <div className={`prod-tab ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-chatbot')}>
+                        <div className="products-nav">
+              <div className={`prod-tab ${activeProductTab === 'prod-crm' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-crm')}>
                 <span className="prod-tab-title">{t('products.tab1')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-voice' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-voice')}>
+              <div className={`prod-tab ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-chatbot')}>
                 <span className="prod-tab-title">{t('products.tab2')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-crm' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-crm')}>
+              <div className={`prod-tab ${activeProductTab === 'prod-email' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-email')}>
                 <span className="prod-tab-title">{t('products.tab3')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-email' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-email')}>
+              <div className={`prod-tab ${activeProductTab === 'prod-smallbiz' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-smallbiz')}>
                 <span className="prod-tab-title">{t('products.tab4')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-social' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-social')}>
+              <div className={`prod-tab ${activeProductTab === 'prod-meeting' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-meeting')}>
                 <span className="prod-tab-title">{t('products.tab5')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-saas' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-saas')}>
+              <div className={`prod-tab ${activeProductTab === 'prod-social' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-social')}>
                 <span className="prod-tab-title">{t('products.tab6')}</span>
+                <span className="prod-tab-arrow">→</span>
+              </div>
+              <div className={`prod-tab ${activeProductTab === 'prod-saas' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-saas')}>
+                <span className="prod-tab-title">{t('products.tab7')}</span>
+                <span className="prod-tab-arrow">→</span>
+              </div>
+              <div className={`prod-tab ${activeProductTab === 'prod-voice' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-voice')}>
+                <span className="prod-tab-title">{t('products.tab8')}</span>
+                <span className="prod-tab-arrow">→</span>
+              </div>
+              <div className={`prod-tab ${activeProductTab === 'prod-booking' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-booking')}>
+                <span className="prod-tab-title">{t('products.tab9')}</span>
+                <span className="prod-tab-arrow">→</span>
+              </div>
+              <div className={`prod-tab ${activeProductTab === 'prod-whatstele' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-whatstele')}>
+                <span className="prod-tab-title">{t('products.tab10')}</span>
                 <span className="prod-tab-arrow">→</span>
               </div>
             </div>
 
             <div className="products-content">
-              {/* Chatbots */}
-              <div className={`prod-view ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`}>
+              {/* CRM */}
+              <div className={`prod-view ${activeProductTab === 'prod-crm' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">💬</div>
+                  <div className="prod-view-icon">🎯</div>
                   <h3 className="prod-view-title">{t('products.view1_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view1_desc')}</p>
@@ -525,10 +541,10 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Voice */}
-              <div className={`prod-view ${activeProductTab === 'prod-voice' ? 'active' : ''}`}>
+              {/* Chatbots */}
+              <div className={`prod-view ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🎙️</div>
+                  <div className="prod-view-icon">💬</div>
                   <h3 className="prod-view-title">{t('products.view2_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view2_desc')}</p>
@@ -566,10 +582,10 @@ export default function App() {
                 </div>
               </div>
 
-              {/* CRM */}
-              <div className={`prod-view ${activeProductTab === 'prod-crm' ? 'active' : ''}`}>
+              {/* Email */}
+              <div className={`prod-view ${activeProductTab === 'prod-email' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🎯</div>
+                  <div className="prod-view-icon">✉️</div>
                   <h3 className="prod-view-title">{t('products.view3_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view3_desc')}</p>
@@ -607,10 +623,10 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Email */}
-              <div className={`prod-view ${activeProductTab === 'prod-email' ? 'active' : ''}`}>
+              {/* Small Business */}
+              <div className={`prod-view ${activeProductTab === 'prod-smallbiz' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">✉️</div>
+                  <div className="prod-view-icon">🏪</div>
                   <h3 className="prod-view-title">{t('products.view4_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view4_desc')}</p>
@@ -648,10 +664,10 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Social */}
-              <div className={`prod-view ${activeProductTab === 'prod-social' ? 'active' : ''}`}>
+              {/* Meeting */}
+              <div className={`prod-view ${activeProductTab === 'prod-meeting' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">📣</div>
+                  <div className="prod-view-icon">📅</div>
                   <h3 className="prod-view-title">{t('products.view5_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view5_desc')}</p>
@@ -689,10 +705,10 @@ export default function App() {
                 </div>
               </div>
 
-              {/* SaaS */}
-              <div className={`prod-view ${activeProductTab === 'prod-saas' ? 'active' : ''}`}>
+              {/* Social */}
+              <div className={`prod-view ${activeProductTab === 'prod-social' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🚀</div>
+                  <div className="prod-view-icon">📣</div>
                   <h3 className="prod-view-title">{t('products.view6_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view6_desc')}</p>
@@ -729,7 +745,173 @@ export default function App() {
                   </div>
                 </div>
               </div>
+
+              {/* SaaS */}
+              <div className={`prod-view ${activeProductTab === 'prod-saas' ? 'active' : ''}`}>
+                <div className="prod-view-header">
+                  <div className="prod-view-icon">🚀</div>
+                  <h3 className="prod-view-title">{t('products.view7_title')}</h3>
+                </div>
+                <p className="prod-view-desc">{t('products.view7_desc')}</p>
+                <div className="prod-view-details">
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view7_feat1')}</h5>
+                      <p>{t('products.view7_feat1_desc')}</p>
+                    </div>
+                  </div>
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view7_feat2')}</h5>
+                      <p>{t('products.view7_feat2_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="prod-view-footer">
+                  <div className="prod-view-meta">
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view7_stat1_num')}</div>
+                      <div className="prod-meta-label">{t('products.view7_stat1_label')}</div>
+                    </div>
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view7_stat2_num')}</div>
+                      <div className="prod-meta-label">{t('products.view7_stat2_label')}</div>
+                    </div>
+                  </div>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Voice */}
+              <div className={`prod-view ${activeProductTab === 'prod-voice' ? 'active' : ''}`}>
+                <div className="prod-view-header">
+                  <div className="prod-view-icon">🎙️</div>
+                  <h3 className="prod-view-title">{t('products.view8_title')}</h3>
+                </div>
+                <p className="prod-view-desc">{t('products.view8_desc')}</p>
+                <div className="prod-view-details">
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view8_feat1')}</h5>
+                      <p>{t('products.view8_feat1_desc')}</p>
+                    </div>
+                  </div>
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view8_feat2')}</h5>
+                      <p>{t('products.view8_feat2_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="prod-view-footer">
+                  <div className="prod-view-meta">
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view8_stat1_num')}</div>
+                      <div className="prod-meta-label">{t('products.view8_stat1_label')}</div>
+                    </div>
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view8_stat2_num')}</div>
+                      <div className="prod-meta-label">{t('products.view8_stat2_label')}</div>
+                    </div>
+                  </div>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Booking */}
+              <div className={`prod-view ${activeProductTab === 'prod-booking' ? 'active' : ''}`}>
+                <div className="prod-view-header">
+                  <div className="prod-view-icon">🗓️</div>
+                  <h3 className="prod-view-title">{t('products.view9_title')}</h3>
+                </div>
+                <p className="prod-view-desc">{t('products.view9_desc')}</p>
+                <div className="prod-view-details">
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view9_feat1')}</h5>
+                      <p>{t('products.view9_feat1_desc')}</p>
+                    </div>
+                  </div>
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view9_feat2')}</h5>
+                      <p>{t('products.view9_feat2_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="prod-view-footer">
+                  <div className="prod-view-meta">
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view9_stat1_num')}</div>
+                      <div className="prod-meta-label">{t('products.view9_stat1_label')}</div>
+                    </div>
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view9_stat2_num')}</div>
+                      <div className="prod-meta-label">{t('products.view9_stat2_label')}</div>
+                    </div>
+                  </div>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Whatsapp & Telegram Bot */}
+              <div className={`prod-view ${activeProductTab === 'prod-whatstele' ? 'active' : ''}`}>
+                <div className="prod-view-header">
+                  <div className="prod-view-icon">📱</div>
+                  <h3 className="prod-view-title">{t('products.view10_title')}</h3>
+                </div>
+                <p className="prod-view-desc">{t('products.view10_desc')}</p>
+                <div className="prod-view-details">
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view10_feat1')}</h5>
+                      <p>{t('products.view10_feat1_desc')}</p>
+                    </div>
+                  </div>
+                  <div className="prod-detail-item">
+                    <span className="prod-detail-check">✓</span>
+                    <div className="prod-detail-text">
+                      <h5>{t('products.view10_feat2')}</h5>
+                      <p>{t('products.view10_feat2_desc')}</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="prod-view-footer">
+                  <div className="prod-view-meta">
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view10_stat1_num')}</div>
+                      <div className="prod-meta-label">{t('products.view10_stat1_label')}</div>
+                    </div>
+                    <div className="prod-meta-stat">
+                      <div className="prod-meta-num">{t('products.view10_stat2_num')}</div>
+                      <div className="prod-meta-label">{t('products.view10_stat2_label')}</div>
+                    </div>
+                  </div>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
+                </div>
+              </div>
             </div>
+
+
           </div>
         </div>
       </section>

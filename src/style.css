@@ -818,7 +818,7 @@ ul {
   grid-template-columns: 320px 1fr;
   gap: 48px;
   margin-top: 48px;
-  align-items: start;
+  align-items: stretch;
 }
 
 .products-nav {
@@ -930,7 +930,9 @@ ul {
 }
 
 .prod-view.active {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
 .prod-view-header {
@@ -1000,6 +1002,7 @@ ul {
 
 .prod-view-footer {
   border-top: 1px solid var(--border-color);
+  margin-top: auto;
   padding-top: 24px;
   display: flex;
   justify-content: space-between;
