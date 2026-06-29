@@ -518,7 +518,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view1_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
 
@@ -556,7 +559,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view2_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
 
@@ -594,7 +600,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view3_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
 
@@ -632,7 +641,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view4_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
 
@@ -670,7 +682,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view5_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
 
@@ -708,7 +723,10 @@ export default function App() {
                       <div className="prod-meta-label">{t('products.view6_stat2_label')}</div>
                     </div>
                   </div>
-                  <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  <div className="prod-view-actions">
+                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                  </div>
                 </div>
               </div>
             </div>

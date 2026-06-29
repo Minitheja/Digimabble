@@ -107,7 +107,8 @@ export const translations = {
       view6_stat1_label: "Uptime SLA",
       view6_stat2_num: "GDPR",
       view6_stat2_label: "Certified",
-      view_cta: "Request Integration Details"
+      view_more: "View More",
+      view_cta: "Book Demo"
     },
     usecases: {
       tag: "Industry Implementation",
@@ -332,7 +333,8 @@ export const translations = {
       view6_stat1_label: "Uptime SLA",
       view6_stat2_num: "RGPD",
       view6_stat2_label: "Certifié",
-      view_cta: "Demander les détails d'intégration"
+      view_more: "Voir plus",
+      view_cta: "Réserver une démo"
     },
     usecases: {
       tag: "Mise en œuvre sectorielle",
@@ -557,7 +559,8 @@ export const translations = {
       view6_stat1_label: "Uptime SLA",
       view6_stat2_num: "AVG",
       view6_stat2_label: "Gecertificeerd",
-      view_cta: "Vraag Integratie Details Aan"
+      view_more: "Meer bekijken",
+      view_cta: "Boek demo"
     },
     usecases: {
       tag: "Sector Implementatie",
@@ -782,7 +785,8 @@ export const translations = {
       view6_stat1_label: "Uptime SLA",
       view6_stat2_num: "RGPD",
       view6_stat2_label: "Certificado",
-      view_cta: "Solicitar detalles de integración"
+      view_more: "Ver más",
+      view_cta: "Reservar demo"
     },
     usecases: {
       tag: "Implementación en la industria",
@@ -1007,7 +1011,8 @@ export const translations = {
       view6_stat1_label: "Uptime SLA",
       view6_stat2_num: "RODO",
       view6_stat2_label: "Zgodność",
-      view_cta: "Szczegóły Integracji"
+      view_more: "Zobacz więcej",
+      view_cta: "Zarezerwuj demo"
     },
     usecases: {
       tag: "Wdrożenia branżowe",
