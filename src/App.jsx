@@ -1335,16 +1335,14 @@ export default function App() {
               <a href="#">{t('footer.link_privacy')}</a>
               <a href="#">{t('footer.link_terms')}</a>
               <a href="#">{t('footer.link_refund')}</a>
+              <a href="#">{t('footer.gdpr')}</a>
+              <a href="#">{t('footer.sla')}</a>
             </div>
           </div>
         </div>
 
         <div className="container footer-bottom">
           <p>{t('footer.copy')}</p>
-          <div className="footer-legal">
-            <a href="#">{t('footer.gdpr')}</a>
-            <a href="#">{t('footer.sla')}</a>
-          </div>
         </div>
       </footer>
     </>
