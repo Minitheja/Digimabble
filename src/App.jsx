@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { translations } from './translations.js';
+import AiCrm from './AiCrm';
 
 export default function App() {
   // --- Language State ---
@@ -40,9 +41,43 @@ export default function App() {
     }
   }, [lang]);
 
+
   // --- Scroll State & ScrollSpy ---
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [currentPage, setCurrentPage] = useState('home');
+
+  // --- Navigation Routing Helpers ---
+  const handleNavClick = (e, sectionId) => {
+    if (e) e.preventDefault();
+    setIsMobileMenuOpen(false);
+    
+    if (currentPage !== 'home') {
+      setCurrentPage('home');
+      setActiveSection(sectionId);
+      // Wait for React to mount the homepage elements before scrolling
+      setTimeout(() => {
+        const el = document.getElementById(sectionId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      setActiveSection(sectionId);
+      const el = document.getElementById(sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
+  const handleLogoClick = (e) => {
+    if (e) e.preventDefault();
+    setCurrentPage('home');
+    setActiveSection('');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -260,21 +295,21 @@ export default function App() {
       {/* HEADER */}
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="container nav-container">
-          <a href="#" className="logo" onClick={() => setActiveSection('')}>
+          <a href="#" className="logo" onClick={handleLogoClick}>
             <img src="/assets/logo-colored.png" alt="DIGI MABBLE Logo" className="logo-img logo-colored" />
             <img src="/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img logo-white" />
           </a>
 
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
-            <a href="#platform" className={`nav-link ${activeSection === 'platform' ? 'active' : ''}`} onClick={() => { setActiveSection('platform'); setIsMobileMenuOpen(false); }}>{t('nav.platform')}</a>
-            <a href="#products" className={`nav-link ${activeSection === 'products' ? 'active' : ''}`} onClick={() => { setActiveSection('products'); setIsMobileMenuOpen(false); }}>{t('nav.products')}</a>
-            <a href="#usecases" className={`nav-link ${activeSection === 'usecases' ? 'active' : ''}`} onClick={() => { setActiveSection('usecases'); setIsMobileMenuOpen(false); }}>{t('nav.usecases')}</a>
-            <a href="#faq" className={`nav-link ${activeSection === 'faq' ? 'active' : ''}`} onClick={() => { setActiveSection('faq'); setIsMobileMenuOpen(false); }}>{t('nav.faq')}</a>
-            <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={() => { setActiveSection('testimonials'); setIsMobileMenuOpen(false); }}>{t('nav.trust')}</a>
-            <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }}>{t('nav.contact')}</a>
+            <a href="#platform" className={`nav-link ${activeSection === 'platform' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'platform')}>{t('nav.platform')}</a>
+            <a href="#products" className={`nav-link ${activeSection === 'products' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'products')}>{t('nav.products')}</a>
+            <a href="#usecases" className={`nav-link ${activeSection === 'usecases' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'usecases')}>{t('nav.usecases')}</a>
+            <a href="#faq" className={`nav-link ${activeSection === 'faq' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'faq')}>{t('nav.faq')}</a>
+            <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'testimonials')}>{t('nav.trust')}</a>
+            <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.contact')}</a>
 
             <div className="nav-actions-mobile">
-              <a href="#contact" className="btn btn-primary nav-btn" onClick={() => setIsMobileMenuOpen(false)}>{t('nav.call')}</a>
+              <a href="#contact" className="btn btn-primary nav-btn" onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.call')}</a>
             </div>
 
             <div className="lang-selector-mobile">
@@ -298,7 +333,7 @@ export default function App() {
                 <option value="pl">PL</option>
               </select>
             </div>
-            <a href="#contact" className="btn btn-primary nav-btn">{t('nav.call')}</a>
+            <a href="#contact" className="btn btn-primary nav-btn" onClick={(e) => handleNavClick(e, 'contact')}>{t('nav.call')}</a>
           </div>
 
           <div className="header-mobile-actions">
@@ -319,6 +354,10 @@ export default function App() {
           </div>
         </div>
       </header>
+      {currentPage === 'ai-crm' ? (
+        <AiCrm setCurrentPage={setCurrentPage} />
+      ) : (
+        <>
 
       {/* MOBILE NAV OVERLAY */}
       <div className={`nav-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
@@ -519,7 +558,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -560,7 +599,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -601,7 +640,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -642,7 +681,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -683,7 +722,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -724,7 +763,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="/ai-crm/index.html" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
                     <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
                   </div>
                 </div>
@@ -1114,6 +1153,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+              </>
+      )}
 
       {/* FOOTER */}
       <footer className="site-footer">
