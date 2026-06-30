@@ -43,10 +43,12 @@ export default function App() {
   // --- Scroll State & ScrollSpy ---
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      setShowScrollTop(window.scrollY > 300);
 
       // ScrollSpy
       const sections = ['platform', 'products', 'usecases', 'faq', 'testimonials', 'contact'];
@@ -103,6 +105,27 @@ export default function App() {
   const [activeProductTab, setActiveProductTab] = useState('prod-crm');
   const [activeUseCaseTab, setActiveUseCaseTab] = useState('uc-finance');
   const [activeFaqIndex, setActiveFaqIndex] = useState(null);
+
+  // --- Book Demo Modal ---
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [demoForm, setDemoForm] = useState({
+    name: '', email: '', company: '', role: '', interest: '', employees: '', message: ''
+  });
+  const [demoSubmitted, setDemoSubmitted] = useState(false);
+
+  const handleDemoInput = (e) => {
+    setDemoForm({ ...demoForm, [e.target.name]: e.target.value });
+  };
+
+  const handleDemoSubmit = (e) => {
+    e.preventDefault();
+    setDemoSubmitted(true);
+    setTimeout(() => {
+      setIsDemoModalOpen(false);
+      setDemoSubmitted(false);
+      setDemoForm({ name: '', email: '', company: '', role: '', interest: '', employees: '', message: '' });
+    }, 2000);
+  };
 
   // --- Terminal Simulation ---
   const logs = [
@@ -167,8 +190,8 @@ export default function App() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     company: '',
-    product: '',
     message: ''
   });
 
@@ -193,27 +216,27 @@ export default function App() {
       en: {
         processing: 'Processing request...',
         submitted: 'Request Submitted',
-        success: `Thank you, ${formData.name}. Your request for "${formData.product}" evaluation has been received. Our Enterprise Solutions Team will contact you at ${formData.email} within 24 hours.`
+        success: `Thank you, ${formData.name}. Your request has been received. Our Enterprise Solutions Team will contact you at ${formData.email} within 24 hours.`
       },
       fr: {
         processing: 'Traitement de la demande...',
         submitted: 'Demande envoyée',
-        success: `Merci, ${formData.name}. Votre demande d'évaluation de "${formData.product}" a été reçue. Notre équipe de solutions d'entreprise vous contactera à ${formData.email} dans les 24 heures.`
+        success: `Merci, ${formData.name}. Votre demande a été reçue. Notre équipe vous contactera à ${formData.email} dans les 24 heures.`
       },
       nl: {
         processing: 'Aanvraag verwerken...',
         submitted: 'Aanvraag verzonden',
-        success: `Dank je, ${formData.name}. Je aanvraag voor "${formData.product}"-evaluatie is ontvangen. Ons Enterprise Solutions-team neemt binnen 24 uur contact met je op via ${formData.email}.`
+        success: `Dank je, ${formData.name}. Je aanvraag is ontvangen. Ons team neemt binnen 24 uur contact met je op via ${formData.email}.`
       },
       es: {
         processing: 'Procesando solicitud...',
         submitted: 'Solicitud enviada',
-        success: `Gracias, ${formData.name}. Su solicitud de evaluación de "${formData.product}" ha sido recibida. Nuestro equipo de soluciones empresariales se comunicará con usted en ${formData.email} dentro de las 24 horas.`
+        success: `Gracias, ${formData.name}. Su solicitud ha sido recibida. Nuestro equipo se comunicará con usted en ${formData.email} dentro de las 24 horas.`
       },
       pl: {
         processing: 'Przetwarzanie zapytania...',
         submitted: 'Zapytanie wysłane',
-        success: `Dziękujemy, ${formData.name}. Twoje zgłoszenie o ocenę "${formData.product}" zostało odebrane. Nasz zespół Enterprise Solutions skontaktuje się z Tobą pod adresem ${formData.email} w ciągu 24 godzin.`
+        success: `Dziękujemy, ${formData.name}. Twoje zgłoszenie zostało odebrane. Nasz zespół skontaktuje się z Tobą pod adresem ${formData.email} w ciągu 24 godzin.`
       }
     };
 
@@ -228,8 +251,8 @@ export default function App() {
       setFormData({
         name: '',
         email: '',
+        phone: '',
         company: '',
-        product: '',
         message: ''
       });
     }, 1500);
@@ -266,11 +289,13 @@ export default function App() {
           </a>
 
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
+            <a href="#" className={`nav-link ${activeSection === 'home' || activeSection === '' ? 'active' : ''}`} onClick={() => { setActiveSection('home'); setIsMobileMenuOpen(false); }}>{t('nav.home')}</a>
+            <a href="#" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setActiveSection('about'); setIsMobileMenuOpen(false); }}>{t('nav.about')}</a>
             <a href="#platform" className={`nav-link ${activeSection === 'platform' ? 'active' : ''}`} onClick={() => { setActiveSection('platform'); setIsMobileMenuOpen(false); }}>{t('nav.platform')}</a>
             <a href="#products" className={`nav-link ${activeSection === 'products' ? 'active' : ''}`} onClick={() => { setActiveSection('products'); setIsMobileMenuOpen(false); }}>{t('nav.products')}</a>
             <a href="#usecases" className={`nav-link ${activeSection === 'usecases' ? 'active' : ''}`} onClick={() => { setActiveSection('usecases'); setIsMobileMenuOpen(false); }}>{t('nav.usecases')}</a>
-            <a href="#faq" className={`nav-link ${activeSection === 'faq' ? 'active' : ''}`} onClick={() => { setActiveSection('faq'); setIsMobileMenuOpen(false); }}>{t('nav.faq')}</a>
             <a href="#testimonials" className={`nav-link ${activeSection === 'testimonials' ? 'active' : ''}`} onClick={() => { setActiveSection('testimonials'); setIsMobileMenuOpen(false); }}>{t('nav.trust')}</a>
+            <a href="#faq" className={`nav-link ${activeSection === 'faq' ? 'active' : ''}`} onClick={() => { setActiveSection('faq'); setIsMobileMenuOpen(false); }}>{t('nav.faq')}</a>
             <a href="#contact" className={`nav-link ${activeSection === 'contact' ? 'active' : ''}`} onClick={() => { setActiveSection('contact'); setIsMobileMenuOpen(false); }}>{t('nav.contact')}</a>
             
             <div className="nav-actions-mobile">
@@ -298,7 +323,7 @@ export default function App() {
                 <option value="pl">PL</option>
               </select>
             </div>
-            <a href="#contact" className="btn btn-primary nav-btn">{t('nav.call')}</a>
+            <button className="btn btn-primary nav-btn" onClick={() => setIsDemoModalOpen(true)}>{t('nav.call')}</button>
           </div>
 
           <div className="header-mobile-actions">
@@ -331,7 +356,7 @@ export default function App() {
             <h1>{t('hero.title')}</h1>
             <p>{t('hero.desc')}</p>
             <div className="hero-btns">
-              <a href="#contact" className="btn btn-primary">{t('hero.cta_call')}</a>
+              <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('hero.cta_call')}</button>
               <a href="#products" className="btn btn-secondary">{t('hero.cta_products')}</a>
             </div>
           </div>
@@ -536,7 +561,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -577,7 +602,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -618,7 +643,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -659,7 +684,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -700,7 +725,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -741,7 +766,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -782,7 +807,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -823,7 +848,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -864,7 +889,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -905,7 +930,7 @@ export default function App() {
                   </div>
                   <div className="prod-view-actions">
                     <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary">{t('products.view_cta')}</a>
+                    <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
               </div>
@@ -1200,19 +1225,72 @@ export default function App() {
             <h3>{t('contact.title')}</h3>
             <p>{t('contact.desc')}</p>
 
-            <div className="info-list">
-              <div className="info-row">
-                <div className="info-icon">✉️</div>
-                <div>
-                  <div className="info-label">{t('contact.inquiry')}</div>
-                  <div className="info-val">support@digimabbleai.com</div>
+            <div className="contact-details-groups">
+              {/* Address Group */}
+              <div className="contact-detail-group">
+                <h4 className="contact-group-title">{t('contact.group_address')}</h4>
+                <div className="contact-group-items">
+                  <div className="contact-detail-item">
+                    <span className="contact-item-icon">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 384 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/>
+                      </svg>
+                    </span>
+                    <span className="contact-item-text">Avenue Eiffel 8, 1300 Wavre, Belgium.</span>
+                  </div>
+                  <div className="contact-detail-item">
+                    <span className="contact-item-icon">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 384 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/>
+                      </svg>
+                    </span>
+                    <span className="contact-item-text">Tartu mnt 67/1, 10115 Tallinn, Estonia.</span>
+                  </div>
                 </div>
               </div>
-              <div className="info-row">
-                <div className="info-icon">🛡️</div>
-                <div>
-                  <div className="info-label">{t('contact.standards')}</div>
-                  <div className="info-val">{t('contact.standards_val')}</div>
+
+              {/* Development Centre Group */}
+              <div className="contact-detail-group">
+                <h4 className="contact-group-title">{t('contact.group_dev_centre')}</h4>
+                <div className="contact-group-items">
+                  <div className="contact-detail-item">
+                    <span className="contact-item-icon">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 384 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"/>
+                      </svg>
+                    </span>
+                    <span className="contact-item-text">2nd floor, Deepa building, road, near VIT, Vellore 632014, India</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Send us an email Group */}
+              <div className="contact-detail-group">
+                <h4 className="contact-group-title">{t('contact.group_email')}</h4>
+                <div className="contact-group-items">
+                  <div className="contact-detail-item">
+                    <span className="contact-item-icon">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 153.4-113 4.2-3.3 6.6-8.2 6.6-13.5V112c0-26.5-21.5-48-48-48H48c-26.5 0-48 21.5-48 48v40.1c0 5.3 2.4 10.2 6.6 13.5 10.7 8.3 20.7 16.8 153.4 113 16.8 12.2 50.2 41.8 73.4 41.4z"/>
+                      </svg>
+                    </span>
+                    <span className="contact-item-text">info@digimabble.com</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Give us a call Group */}
+              <div className="contact-detail-group">
+                <h4 className="contact-group-title">{t('contact.group_phone')}</h4>
+                <div className="contact-group-items">
+                  <div className="contact-detail-item">
+                    <span className="contact-item-icon">
+                      <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M493.4 345.6l-93.9-47c-11.7-5.9-25.6-3.8-35.1 5.3l-46.2 46.2C247.9 313.7 198.3 264.1 162 193.8l46.2-46.2c9.1-9.5 11.2-23.4 5.3-35.1l-47-93.9C160.7 5.2 148.6 0 135.3 0H50.2C22.5 0 0 22.5 0 50.2c0 254.8 207 461.8 461.8 461.8 27.7 0 50.2-22.5 50.2-50.2V376.7c0-13.3-5.2-25.4-18.6-31.1z"/>
+                      </svg>
+                    </span>
+                    <span className="contact-item-text">+32 467 85 99 60</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1248,6 +1326,18 @@ export default function App() {
               </div>
               <div className="form-row">
                 <div className="form-group">
+                  <label className="form-label" htmlFor="cf-phone">{t('contact.label_phone_field')}</label>
+                  <input 
+                    className="form-input" 
+                    type="tel" 
+                    id="cf-phone" 
+                    required 
+                    placeholder={t('contact.ph_phone')}
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                  />
+                </div>
+                <div className="form-group">
                   <label className="form-label" htmlFor="cf-company">{t('contact.label_company')}</label>
                   <input 
                     className="form-input" 
@@ -1258,23 +1348,6 @@ export default function App() {
                     value={formData.company}
                     onChange={handleInputChange}
                   />
-                </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cf-product">{t('contact.label_product')}</label>
-                  <select 
-                    className="form-select" 
-                    id="cf-product" 
-                    required
-                    value={formData.product}
-                    onChange={handleInputChange}
-                  >
-                    <option value="" disabled>{t('contact.opt_select')}</option>
-                    <option value="AI Chatbots">{t('contact.opt1')}</option>
-                    <option value="AI Voice Bots">{t('contact.opt2')}</option>
-                    <option value="AI CRM Integrations">{t('contact.opt3')}</option>
-                    <option value="AI Email Management">{t('contact.opt4')}</option>
-                    <option value="Custom SaaS Pipelines">{t('contact.opt5')}</option>
-                  </select>
                 </div>
               </div>
               <div className="form-group form-group-full">
@@ -1306,8 +1379,23 @@ export default function App() {
             </a>
             <p>{t('footer.desc')}</p>
             <div className="social-links">
-              <a href="#" className="social-icon">In</a>
-              <a href="#" className="social-icon">X</a>
+              <a href="https://www.linkedin.com/company/digi-mabble" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/>
+                </svg>
+              </a>
+              <a href="https://www.instagram.com/digimabbleproduct/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Instagram">
+                <svg stroke="currentColor" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </a>
+              <a href="https://www.facebook.com/people/Digi-Mabble/61582498770534/" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="Facebook">
+                <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 512 512" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/>
+                </svg>
+              </a>
             </div>
           </div>
 
@@ -1345,6 +1433,113 @@ export default function App() {
           <p>{t('footer.copy')}</p>
         </div>
       </footer>
+
+      {/* Book Demo Modal */}
+      {isDemoModalOpen && (
+        <div className="demo-modal-overlay" onClick={(e) => e.target === e.currentTarget && setIsDemoModalOpen(false)}>
+          <div className="demo-modal">
+            <button className="demo-modal-close" onClick={() => setIsDemoModalOpen(false)} aria-label="Close">
+              <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {demoSubmitted ? (
+              <div className="demo-success">
+                <div className="demo-success-icon">
+                  <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" width="48" height="48" xmlns="http://www.w3.org/2000/svg">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3>Request Received!</h3>
+                <p>Our team will reach out within 24 hours to schedule your personalized demo.</p>
+              </div>
+            ) : (
+              <>
+                <div className="demo-modal-header">
+                  <h2>Schedule a Personalized Demo</h2>
+                  <p>See how Digimabble AI automates your workflows, streamlines operations, and drives growth — tailored to your business.</p>
+                </div>
+
+                <form className="demo-form" onSubmit={handleDemoSubmit}>
+                  <div className="demo-form-row">
+                    <div className="demo-form-group">
+                      <label htmlFor="demo-name">Full Name <span className="demo-required">*</span></label>
+                      <input id="demo-name" name="name" type="text" required placeholder="Jane Smith" value={demoForm.name} onChange={handleDemoInput} />
+                    </div>
+                    <div className="demo-form-group">
+                      <label htmlFor="demo-email">Work Email <span className="demo-required">*</span></label>
+                      <input id="demo-email" name="email" type="email" required placeholder="jane@company.com" value={demoForm.email} onChange={handleDemoInput} />
+                    </div>
+                  </div>
+
+                  <div className="demo-form-row">
+                    <div className="demo-form-group">
+                      <label htmlFor="demo-company">Company Name <span className="demo-required">*</span></label>
+                      <input id="demo-company" name="company" type="text" required placeholder="Acme Corp" value={demoForm.company} onChange={handleDemoInput} />
+                    </div>
+                    <div className="demo-form-group">
+                      <label htmlFor="demo-role">Role / Position</label>
+                      <input id="demo-role" name="role" type="text" placeholder="Operations Manager" value={demoForm.role} onChange={handleDemoInput} />
+                    </div>
+                  </div>
+
+                  <div className="demo-form-row">
+                    <div className="demo-form-group demo-form-full" style={{gridColumn:'1/-1'}}>
+                      <label htmlFor="demo-interest">AI Product of Interest <span className="demo-required">*</span></label>
+                      <select id="demo-interest" name="interest" required value={demoForm.interest} onChange={handleDemoInput}>
+                        <option value="" disabled>Select a product...</option>
+                        <option value="crm">AI Powered CRM Automation</option>
+                        <option value="chatbots">AI Chatbots &amp; Cross-Channel Bots</option>
+                        <option value="email">AI Email Management</option>
+                        <option value="small-biz">AI Solutions for Small Business</option>
+                        <option value="meetings">Intelligent AI Meeting Agents</option>
+                        <option value="social">AI Social Content &amp; Campaign Ops</option>
+                        <option value="enterprise">Enterprise AI SaaS &amp; Custom Pipelines</option>
+                        <option value="voice">Conversational AI Voice Bots</option>
+                        <option value="bookings">Universal AI Appointment &amp; Bookings</option>
+                        <option value="whatsapp">AI WhatsApp &amp; Telegram Bots</option>
+                        <option value="multiple">Multiple Products</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="demo-form-group demo-form-full">
+                    <label htmlFor="demo-message">Tell us about your automation needs</label>
+                    <textarea id="demo-message" name="message" rows="3" placeholder="Describe the workflow or operational challenge you want to solve..." value={demoForm.message} onChange={handleDemoInput}></textarea>
+                  </div>
+
+                  <button type="submit" className="demo-submit-btn">Book My Demo →</button>
+                </form>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Floating Action Buttons */}
+      <div className="floating-actions">
+        {showScrollTop && (
+          <button 
+            className="floating-btn scroll-top-btn" 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            aria-label="Scroll to top"
+          >
+            <svg stroke="currentColor" fill="none" strokeWidth="2.5" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 10.5L12 3m0 0l7.5 7.5M12 3v18" />
+            </svg>
+          </button>
+        )}
+        <a 
+          href="#contact" 
+          className="floating-btn chatbot-btn" 
+          aria-label="Contact Chatbot"
+        >
+          <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </a>
+      </div>
     </>
   );
 }
