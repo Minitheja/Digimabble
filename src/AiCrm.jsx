@@ -1,5 +1,13 @@
 import React, { useEffect } from 'react';
 import './crm-style.css';
+import {
+  iconLead as IconLead,
+  iconSecurity as IconSecurity,
+  iconEngagement as IconEngagement,
+  iconIntegration as IconIntegration,
+  iconProfile as IconProfile,
+  iconPersonalization as IconPersonalization
+} from './crmCardIcons.jsx';
 
 export default function AiCrm({ setCurrentPage }) {
   useEffect(() => {
@@ -68,10 +76,10 @@ export default function AiCrm({ setCurrentPage }) {
           </div>
           <div className="crm-hero-visual">
             <div className="crm-mockup-frame">
-              <img 
-                src="/assets/hero-dashboard.png" 
-                alt="AI CRM Dashboard Mockup" 
-                className="crm-mockup-img" 
+              <img
+                src="/assets/hero-dashboard.png"
+                alt="AI CRM Dashboard Mockup"
+                className="crm-mockup-img"
               />
             </div>
           </div>
@@ -80,42 +88,37 @@ export default function AiCrm({ setCurrentPage }) {
 
       {/* 2. GAME CHANGER SECTION */}
       <section className="crm-section crm-bg-sand">
-        <div className="crm-container">
-          <div className="crm-section-header crm-max-w-medium">
+        <div className="crm-container crm-gamechanger-grid">
+          <div className="crm-gamechanger-left">
             <h2 className="crm-section-title">Why AI Powered CRM is a Game Changer</h2>
             <p className="crm-section-desc">
               In today’s fast-paced business environment, customer expectations are constantly evolving. Traditional CRM systems, relying on manual processes and static records, struggle to keep up. That’s where AI makes the difference. By integrating machine learning, predictive analytics, and automation directly into your CRM workflow, your organization can:
             </p>
+            <ul className="crm-gamechanger-list">
+              <li>
+                <span className="crm-gamechanger-list-check">{checkIcon}</span>
+                <span><strong>Anticipate Customer Needs:</strong> Predict behaviors and preferences instead of just reacting to them.</span>
+              </li>
+              <li>
+                <span className="crm-gamechanger-list-check">{checkIcon}</span>
+                <span><strong>Automate Routine Tasks:</strong> Free your team from repetitive work, allowing focus on strategic initiatives.</span>
+              </li>
+              <li>
+                <span className="crm-gamechanger-list-check">{checkIcon}</span>
+                <span><strong>Gain Real-Time Insights:</strong> Access a complete 360° view across sales, service, and marketing.</span>
+              </li>
+              <li>
+                <span className="crm-gamechanger-list-check">{checkIcon}</span>
+                <span><strong>Boost Conversions and Loyalty:</strong> Drive deeper engagement, stronger conversions, and superior customer relationships.</span>
+              </li>
+            </ul>
           </div>
-          <div className="crm-checklist-grid">
-            <div className="crm-checklist-item">
-              <div className="crm-checklist-icon">{checkIcon}</div>
-              <div>
-                <h4 className="crm-checklist-title">Anticipate Customer Needs</h4>
-                <p className="crm-checklist-text">Predict behaviors and preferences instead of just reacting to them.</p>
-              </div>
-            </div>
-            <div className="crm-checklist-item">
-              <div className="crm-checklist-icon">{checkIcon}</div>
-              <div>
-                <h4 className="crm-checklist-title">Automate Routine Tasks</h4>
-                <p className="crm-checklist-text">Free your team from repetitive work, allowing focus on strategic initiatives.</p>
-              </div>
-            </div>
-            <div className="crm-checklist-item">
-              <div className="crm-checklist-icon">{checkIcon}</div>
-              <div>
-                <h4 className="crm-checklist-title">Gain Real-Time Insights</h4>
-                <p className="crm-checklist-text">Access a complete 360° view across sales, service, and marketing.</p>
-              </div>
-            </div>
-            <div className="crm-checklist-item">
-              <div className="crm-checklist-icon">{checkIcon}</div>
-              <div>
-                <h4 className="crm-checklist-title">Boost Conversions and Loyalty</h4>
-                <p className="crm-checklist-text">Drive deeper engagement, stronger conversions, and superior customer relationships.</p>
-              </div>
-            </div>
+          <div className="crm-gamechanger-right">
+            <img
+              src="/assets/crm-gamechanger.png"
+              alt="AI CRM Game Changer Visual"
+              className="crm-gamechanger-img"
+            />
           </div>
         </div>
       </section>
@@ -132,68 +135,86 @@ export default function AiCrm({ setCurrentPage }) {
 
           <div className="crm-cards-grid">
             {/* Card 1 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">01</div>
+            <div className="crm-feature-card crm-card-yellow">
+              <div className="crm-card-icon-container">
+                <IconLead className="crm-card-icon" />
+              </div>
               <h3 className="crm-card-title">Predictive Lead Scoring & Prioritisation</h3>
               <p className="crm-card-text">
                 Using AI models trained on real time and historical data, we automatically score your leads. This ensures your sales team focuses only on the highest value opportunities, maximizing efficiency and deal closure rates.
               </p>
             </div>
             {/* Card 2 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">02</div>
-              <h3 className="crm-card-title">Enterprise Security & Compliance</h3>
-              <p className="crm-card-text">
-                Built to meet strict data protection standards, our solution keeps your customer data secure. We handle information ethically at every step, giving you peace of mind and compliance confidence.
-              </p>
-            </div>
-            {/* Card 3 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">03</div>
+            <div className="crm-feature-card crm-card-green">
+              <div className="crm-card-icon-container">
+                <IconEngagement className="crm-card-icon" />
+              </div>
               <h3 className="crm-card-title">Automated Engagement & Follow up</h3>
               <p className="crm-card-text">
                 Triggered workflows respond to events like emails, chat messages, calls, or website visits. They act instantly to engage every interaction. This ensures no lead or customer is ever missed. Maximize follow ups.
               </p>
             </div>
-            {/* Card 4 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">04</div>
-              <h3 className="crm-card-title">Seamless Integrations & Scalability</h3>
-              <p className="crm-card-text">
-                Our CRM seamlessly connects with your existing systems and tools. Enable a smooth transition to next-generation operations. No disruptions, downtime, or workflow interruptions.
-              </p>
-            </div>
-            {/* Card 5 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">05</div>
+            {/* Card 3 */}
+            <div className="crm-feature-card crm-card-blue">
+              <div className="crm-card-icon-container">
+                <IconProfile className="crm-card-icon" />
+              </div>
               <h3 className="crm-card-title">360° Customer Profile & Journey Mapping</h3>
               <p className="crm-card-text">
                 Unified data from all touchpoints sales, marketing, and service provides a complete view of every client. Track interactions and engagement across the entire lifecycle. Make informed decisions to boost retention and growth.
               </p>
             </div>
+            {/* Card 4 */}
+            <div className="crm-feature-card crm-card-purple">
+              <div className="crm-card-icon-container">
+                <IconSecurity className="crm-card-icon" />
+              </div>
+              <h3 className="crm-card-title">Enterprise Security & Compliance</h3>
+              <p className="crm-card-text">
+                Built to meet strict data protection standards, our solution keeps your customer data secure. We handle information ethically at every step, giving you peace of mind and compliance confidence.
+              </p>
+            </div>
+            {/* Card 5 */}
+            <div className="crm-feature-card crm-card-pink">
+              <div className="crm-card-icon-container">
+                <IconIntegration className="crm-card-icon" />
+              </div>
+              <h3 className="crm-card-title">Seamless Integrations & Scalability</h3>
+              <p className="crm-card-text">
+                Our CRM seamlessly connects with your existing systems and tools. Enable a smooth transition to next-generation operations. No disruptions, downtime, or workflow interruptions.
+              </p>
+            </div>
             {/* Card 6 */}
-            <div className="crm-feature-card">
-              <div className="crm-card-num">06</div>
+            <div className="crm-feature-card crm-card-coral">
+              <div className="crm-card-icon-container">
+                <IconPersonalization className="crm-card-icon" />
+              </div>
               <h3 className="crm-card-title">Personalised Customer Interactions</h3>
               <p className="crm-card-text">
-                Intelligent segmentation and content-recommendation engines tailor every outreach to each prospect. Make your communications more relevant.
+                Intelligent segmentation and content-recommendation engines tailor every outreach to each prospect. Make your communications more relevantgement.
               </p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 4. BENEFITS & WHO IT'S FOR SPLIT SECTION */}
-      <section className="crm-section crm-bg-sand">
+      {/* 4. BUSINESS BENEFITS SECTION */}
+      <section className="crm-section">
         <div className="crm-container crm-split-grid">
-          {/* Left Column: Business Benefits */}
+          <div className="crm-split-visual">
+            <img
+              src="/assets/crm-piechart.png"
+              alt="Latest platform update pie chart"
+              className="crm-split-img"
+            />
+          </div>
           <div className="crm-split-col">
             <h2 className="crm-split-title">Business Benefits</h2>
             <p className="crm-split-subtitle">By deploying an AI-powered CRM, organizations can typically realize:</p>
             <ul className="crm-bullet-list">
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Faster Deal Cycles & Conversions:</strong> Close deals more quickly with smarter lead management.</span>
+                <span><strong>Faster Deal Cycles & Higher Conversions:</strong> Close deals more quickly with smarter lead management.</span>
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
@@ -201,7 +222,7 @@ export default function AiCrm({ setCurrentPage }) {
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Enhanced Customer Satisfaction:</strong> Engage proactively to build loyalty and improve experiences.</span>
+                <span><strong>Enhanced Customer Satisfaction & Retention:</strong> Engage proactively to build loyalty and improve experiences.</span>
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
@@ -209,19 +230,23 @@ export default function AiCrm({ setCurrentPage }) {
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Accurate Forecasting & Insights:</strong> Make smarter strategic decisions with reliable data.</span>
+                <span><strong>Accurate Forecasting & Insights:</strong> Make smarter strategic decisions with reliable data and analytics.</span>
               </li>
             </ul>
           </div>
+        </div>
+      </section>
 
-          {/* Right Column: Who It's For */}
+      {/* 5. WHO IT'S FOR SECTION */}
+      <section className="crm-section">
+        <div className="crm-container crm-split-grid">
           <div className="crm-split-col">
-            <h2 className="crm-split-title">Who It’s For</h2>
-            <p className="crm-split-subtitle">Our solution is ideal for businesses that:</p>
+            <h2 className="crm-split-title">Who It's For</h2>
+            <p className="crm-split-subtitle">Our solution is ideal for all businesses</p>
             <ul className="crm-bullet-list">
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Manage High Volumes of Interactions:</strong> Handle large numbers of leads and contacts efficiently.</span>
+                <span><strong>Manage High Volumes of Customer Interactions:</strong> Handle large numbers of leads, contacts, and inquiries efficiently.</span>
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
@@ -229,25 +254,51 @@ export default function AiCrm({ setCurrentPage }) {
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Aim for Proactive Engagement:</strong> Move from reactive client management to insight-driven triggers.</span>
+                <span><strong>Aim for Proactive Engagement:</strong> Move from reactive customer management to insight-driven, proactive interactions.</span>
               </li>
               <li>
                 <span className="crm-list-bullet">{checkIcon}</span>
-                <span><strong>Need Enterprise-Grade Reliability:</strong> Demand top-tier security, compliance, and dependability.</span>
+                <span><strong>Need Enterprise-Grade Reliability:</strong> Demand top-tier security, compliance, and operational dependability.</span>
               </li>
             </ul>
+          </div>
+          <div className="crm-split-visual">
+            <img
+              src="/assets/crm-gamechanger.png"
+              alt="user onboarding chat mockup"
+              className="crm-split-img"
+            />
           </div>
         </div>
       </section>
 
-      {/* 5. HOW IT WORKS SECTION (TIMELINE CARDS) */}
+      {/* 6. EXPERIENCE AI CRM TODAY SECTION */}
+      <section className="crm-section">
+        <div className="crm-container crm-split-grid">
+          <div className="crm-split-visual">
+            <img
+              src="/assets/crm-reporting.png"
+              alt="Real-time reporting line graph mockup"
+              className="crm-split-img"
+            />
+          </div>
+          <div className="crm-split-col crm-cta-split-content">
+            <h2 className="crm-split-title">Experience AI CRM Today</h2>
+            <p className="crm-split-desc">
+              Transform your CRM with AI. Schedule a personalized demo today to improve customer engagement, streamline operations, and boost growth.
+            </p>
+            <div>
+              <a href="#contact" className="crm-cta-btn" onClick={handleCtaClick}>Talk to an Expert</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. HOW IT WORKS SECTION (TIMELINE CARDS) */}
       <section className="crm-section">
         <div className="crm-container">
-          <div className="crm-section-header crm-center-header">
+          <div className="crm-section-header" style={{ marginBottom: '40px' }}>
             <h2 className="crm-section-title">How It Works</h2>
-            <p className="crm-section-desc">
-              We guide you through onboarding, customization, and continuous tuning for optimal workflow performance.
-            </p>
           </div>
           <div className="crm-timeline-row">
             {/* Step 1 */}
@@ -259,8 +310,8 @@ export default function AiCrm({ setCurrentPage }) {
               </p>
             </div>
             {/* Step 2 */}
-            <div className="crm-timeline-card">
-              <div className="crm-timeline-icon-box crm-color-orange">{svgTrain}</div>
+            <div className="crm-timeline-card crm-timeline-card-train">
+              <div className="crm-timeline-icon-box">{svgTrain}</div>
               <h3 className="crm-timeline-title">Train & Configure</h3>
               <p className="crm-timeline-text">
                 Customize workflows, lead-scoring models, and engagement triggers. Align them with your business logic and objectives.
@@ -271,23 +322,10 @@ export default function AiCrm({ setCurrentPage }) {
               <div className="crm-timeline-icon-box">{svgOptimize}</div>
               <h3 className="crm-timeline-title">Activate & Optimise</h3>
               <p className="crm-timeline-text">
-                Launch intelligent, AI-driven processes and workflows. Monitor performance closely in real time using interactive dashboards. Continuously refine.
+                Launch intelligent, AI-driven processes and workflows. Monitor performance closely in real time using interactive dashboards. Continuously refine
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* 6. CTA BANNER SECTION */}
-      <section className="crm-cta-banner">
-        <div className="crm-container crm-cta-inner">
-          <h2 className="crm-cta-title">Experience AI CRM Today</h2>
-          <p className="crm-cta-text">
-            Transform your CRM with AI. Schedule a personalized demo today to improve customer engagement, streamline operations, and boost growth.
-          </p>
-          <a href="#contact" className="crm-btn crm-btn-secondary" onClick={handleCtaClick}>
-            Talk to an Expert
-          </a>
         </div>
       </section>
     </div>

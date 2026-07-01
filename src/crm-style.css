@@ -12,7 +12,7 @@
 
 .crm-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0 40px;
   box-sizing: border-box;
@@ -60,7 +60,8 @@
 /* 1. HERO SECTION */
 .crm-hero-section {
   position: relative;
-  padding-top: 150px; /* Offset for floating sticky header */
+  padding-top: 150px;
+  /* Offset for floating sticky header */
   padding-bottom: 100px;
 }
 
@@ -199,9 +200,7 @@
 }
 
 .crm-feature-card {
-  background-color: #ffffff;
-  border: 1.5px solid #101828;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 40px 30px;
   box-sizing: border-box;
   transition: all 0.3s ease;
@@ -211,23 +210,46 @@
 }
 
 .crm-feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(16, 24, 40, 0.05);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(16, 24, 40, 0.08);
 }
 
-.crm-card-num {
-  font-size: 14px;
-  font-weight: 700;
-  color: #101828;
-  border: 1.5px solid #101828;
-  border-radius: 100px;
-  width: 32px;
-  height: 32px;
+/* Card Pastel Backgrounds */
+.crm-card-yellow {
+  background-color: #FDEE9B;
+}
+
+.crm-card-green {
+  background-color: #BBFF9B;
+}
+
+.crm-card-blue {
+  background-color: #B7F8FF;
+}
+
+.crm-card-purple {
+  background-color: #B8A1FF;
+}
+
+.crm-card-pink {
+  background-color: #FFB0EB;
+}
+
+.crm-card-coral {
+  background-color: #FFABAB;
+}
+
+.crm-card-icon-container {
+  margin-bottom: 24px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-bottom: 24px;
-  background-color: #f6f5f0;
+  justify-content: flex-start;
+}
+
+.crm-card-icon {
+  width: 80px;
+  height: 80px;
+  display: block;
 }
 
 .crm-card-title {
@@ -300,49 +322,86 @@
 /* 5. TIMELINE / HOW IT WORKS CARDS */
 .crm-timeline-row {
   display: flex;
-  gap: 30px;
+  gap: 10px; /* Exact tight column gap */
   align-items: stretch;
 }
 
 .crm-timeline-card {
   flex: 1;
-  background-color: #ffffff;
-  border: 1.5px solid #101828;
-  border-radius: 16px;
-  padding: 40px 30px;
+  background-color: #f6f5f0; /* Sand background matching screenshot */
+  border: 2px solid #000000; /* 2px solid black border */
+  border-radius: 10px; /* 10px border radius */
+  padding: 29px; /* 29px padding all around */
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
 }
 
-.crm-timeline-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(16, 24, 40, 0.05);
+/* Default hover effect for Card 1 & 3: turns black with white text, and gold icon */
+.crm-timeline-card:not(.crm-timeline-card-train):hover {
+  background-color: #000000;
+  border-color: #000000;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.crm-timeline-card:not(.crm-timeline-card-train):hover .crm-timeline-title {
+  color: #ffffff;
+}
+
+.crm-timeline-card:not(.crm-timeline-card-train):hover .crm-timeline-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.crm-timeline-card:not(.crm-timeline-card-train):hover .crm-timeline-icon-box svg path {
+  fill: #F7A516; /* Gold icon on hover */
+}
+
+/* Hover effect for Card 2 (Train & Configure): turns black with white text, and orange icon */
+.crm-timeline-card-train:hover {
+  background-color: #000000;
+  border-color: #000000;
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.crm-timeline-card-train:hover .crm-timeline-title {
+  color: #ffffff;
+}
+
+.crm-timeline-card-train:hover .crm-timeline-text {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.crm-timeline-card-train:hover .crm-timeline-icon-box svg path {
+  fill: #FE330A; /* Orange icon on hover */
 }
 
 .crm-timeline-icon-box {
-  margin-bottom: 28px;
+  margin-bottom: 30px; /* 30px icon margin */
   color: #101828;
   display: inline-flex;
   align-items: center;
 }
 
-.crm-timeline-icon-box.crm-color-orange {
-  color: #FE330A;
+.crm-timeline-icon-box svg {
+  width: 70px;
+  height: 70px;
 }
 
 .crm-timeline-title {
-  font-size: 24px;
+  font-size: 22px; /* 22px title size */
   font-weight: 700;
-  color: #101828;
-  margin: 0 0 16px 0;
+  color: #000000; /* Black title text */
+  margin: 0 0 15px 0; /* 15px margin below title */
+  transition: color 0.3s ease;
 }
 
 .crm-timeline-text {
   font-size: 16px;
-  line-height: 1.6;
-  color: #475467;
+  line-height: 1.55rem; /* 1.55rem line height */
+  color: #191919; /* #191919 description color */
   margin: 0;
   flex-grow: 1;
 }
@@ -383,40 +442,40 @@
   .crm-container {
     padding: 0 24px;
   }
-  
+
   .crm-hero-grid {
     flex-direction: column;
     text-align: center;
     gap: 50px;
   }
-  
+
   .crm-hero-content {
     max-width: 100%;
     padding-left: 0;
   }
-  
+
   .crm-hero-title {
     font-size: 36px;
   }
-  
+
   .crm-hero-actions {
     justify-content: center;
   }
-  
+
   .crm-hero-visual {
     max-width: 100%;
     justify-content: center;
   }
-  
+
   .crm-cards-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-  
+
   .crm-split-grid {
     grid-template-columns: 1fr;
     gap: 60px;
   }
-  
+
   .crm-timeline-row {
     flex-direction: column;
   }
@@ -426,25 +485,166 @@
   .crm-section {
     padding: 70px 0;
   }
-  
+
   .crm-section-title {
     font-size: 32px;
   }
-  
+
   .crm-checklist-grid {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
+
   .crm-cards-grid {
     grid-template-columns: 1fr;
   }
-  
+
   .crm-cta-title {
     font-size: 32px;
   }
-  
+
   .crm-cta-banner {
     padding: 70px 0;
   }
+}
+
+/* Game Changer Restructure */
+.crm-gamechanger-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.crm-gamechanger-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.crm-gamechanger-right {
+  display: flex;
+  justify-content: center;
+}
+
+.crm-gamechanger-img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.crm-gamechanger-list {
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.crm-gamechanger-list li {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: #101828;
+}
+
+.crm-gamechanger-list li strong {
+  font-weight: 700;
+  color: #101828;
+}
+
+.crm-gamechanger-list-check {
+  flex-shrink: 0;
+  color: #101828;
+  margin-top: 2px;
+  display: inline-flex;
+}
+
+/* Responsive Overrides for Game Changer */
+@media (max-width: 1024px) {
+  .crm-gamechanger-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .crm-gamechanger-list {
+    align-items: center;
+    text-align: left;
+  }
+}
+
+/* Split Layout Visuals */
+.crm-split-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crm-split-img {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+}
+
+.crm-cta-split-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.crm-split-desc {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #475467;
+  margin-bottom: 30px;
+}
+
+/* Responsive updates for Split grid */
+@media (max-width: 991px) {
+  .crm-split-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  /* Make image come first on mobile if desired, or keep default */
+  .crm-split-grid> :nth-child(1) {
+    order: 1;
+  }
+
+  .crm-split-grid> :nth-child(2) {
+    order: 2;
+  }
+}
+
+/* CTA Custom Hermosa Button */
+.crm-cta-btn {
+  display: inline-block;
+  background-color: #120655;
+  color: #ffffff;
+  border: 2px solid #3b82f6;
+  /* Bright blue border highlighted by user */
+  border-radius: 50px;
+  padding: 16px 36px;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-align: center;
+}
+
+.crm-cta-btn:hover {
+  background-color: #F7A516;
+  /* Gold/yellow background on hover */
+  color: #0A0641;
+  /* Dark blue text on hover */
+  border-color: #F7A516;
+  /* Gold/yellow border on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(247, 165, 22, 0.3);
 }

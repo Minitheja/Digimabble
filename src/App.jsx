@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { translations } from './translations.js';
 import AiCrm from './AiCrm';
+import AiVoice from './AiVoice';
+import AiChatbot from './AiChatbot';
+import './voice-style.css';
 
 export default function App() {
   // --- Language State ---
@@ -45,13 +48,36 @@ export default function App() {
   // --- Scroll State & ScrollSpy ---
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('page') || 'home';
+    } catch (e) {
+      return 'home';
+    }
+  });
+
+  useEffect(() => {
+    try {
+      const url = new URL(window.location.href);
+      if (currentPage === 'home') {
+        url.searchParams.delete('page');
+      } else {
+        url.searchParams.set('page', currentPage);
+      }
+      window.history.replaceState({}, '', url.pathname + url.search);
+    } catch (e) {
+      // Ignore
+    }
+  }, [currentPage]);
+
+  const [showScrollTop, setShowScrollTop] = useState(false);
 
   // --- Navigation Routing Helpers ---
   const handleNavClick = (e, sectionId) => {
     if (e) e.preventDefault();
     setIsMobileMenuOpen(false);
-    
+
     if (currentPage !== 'home') {
       setCurrentPage('home');
       setActiveSection(sectionId);
@@ -82,6 +108,7 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      setShowScrollTop(window.scrollY > 300);
 
       // ScrollSpy
       const sections = ['platform', 'products', 'usecases', 'faq', 'testimonials', 'contact'];
@@ -284,13 +311,22 @@ export default function App() {
     return t('contact.submit') || langMsgs.default;
   };
 
+  const scrollToTop = (e) => {
+    if (e) e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <>
       {/* Decorative Visual Redesign Elements */}
-      <div className="grid-overlay"></div>
-      <div className="glow-blob blob-1"></div>
-      <div className="glow-blob blob-2"></div>
-      <div className="glow-blob blob-3"></div>
+      {currentPage !== 'ai-chatbot' && (
+        <>
+          <div className="grid-overlay"></div>
+          <div className="glow-blob blob-1"></div>
+          <div className="glow-blob blob-2"></div>
+          <div className="glow-blob blob-3"></div>
+        </>
+      )}
 
       {/* HEADER */}
       <header className={`site-header ${isScrolled ? 'scrolled' : ''}`}>
@@ -356,805 +392,829 @@ export default function App() {
       </header>
       {currentPage === 'ai-crm' ? (
         <AiCrm setCurrentPage={setCurrentPage} />
+      ) : currentPage === 'ai-voice' ? (
+        <AiVoice setCurrentPage={setCurrentPage} />
+      ) : currentPage === 'ai-chatbot' ? (
+        <AiChatbot setCurrentPage={setCurrentPage} />
       ) : (
         <>
 
-      {/* MOBILE NAV OVERLAY */}
-      <div className={`nav-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
+          {/* MOBILE NAV OVERLAY */}
+          <div className={`nav-overlay ${isMobileMenuOpen ? 'active' : ''}`} onClick={() => setIsMobileMenuOpen(false)}></div>
 
-      {/* HERO SECTION */}
-      <section className="hero">
-        <div className="container hero-grid">
-          <div className="hero-content">
-            <span className="section-tag">{t('hero.tag')}</span>
-            <h1>{t('hero.title')}</h1>
-            <p>{t('hero.desc')}</p>
-            <div className="hero-btns">
-              <a href="#contact" className="btn btn-primary">{t('hero.cta_call')}</a>
-              <a href="#products" className="btn btn-secondary">{t('hero.cta_products')}</a>
-            </div>
-          </div>
-
-          <div className="hero-visual">
-            <div className="mockup-container">
-              <div className="mockup-header">
-                <span className="dot-red"></span>
-                <span className="dot-yellow"></span>
-                <span className="dot-green"></span>
-                <div className="mockup-address">{t('hero.terminal_title')}</div>
+          {/* HERO SECTION */}
+          <section className="hero">
+            <div className="container hero-grid">
+              <div className="hero-content">
+                <span className="section-tag">{t('hero.tag')}</span>
+                <h1>{t('hero.title')}</h1>
+                <p>{t('hero.desc')}</p>
+                <div className="hero-btns">
+                  <a href="#contact" className="btn btn-primary">{t('hero.cta_call')}</a>
+                  <a href="#products" className="btn btn-secondary">{t('hero.cta_products')}</a>
+                </div>
               </div>
-              <div className="mockup-body" ref={terminalBodyRef}>
-                {activeLogs.map((log, index) => (
-                  <div className="terminal-line" key={index}>
-                    <span className="terminal-prompt">$</span>
-                    <span className={log.type === 'success' ? 'terminal-success' : log.type === 'warning' ? 'terminal-warning' : ''}>
-                      {log.text}
-                    </span>
+
+              <div className="hero-visual">
+                <div className="mockup-container">
+                  <div className="mockup-header">
+                    <span className="dot-red"></span>
+                    <span className="dot-yellow"></span>
+                    <span className="dot-green"></span>
+                    <div className="mockup-address">{t('hero.terminal_title')}</div>
+                  </div>
+                  <div className="mockup-body" ref={terminalBodyRef}>
+                    {activeLogs.map((log, index) => (
+                      <div className="terminal-line" key={index}>
+                        <span className="terminal-prompt">$</span>
+                        <span className={log.type === 'success' ? 'terminal-success' : log.type === 'warning' ? 'terminal-warning' : ''}>
+                          {log.text}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* TRUST STRIP / TECH STACK */}
+          <section className="trust-strip">
+            <div className="container trust-content">
+              <span className="trust-text">{t('tech.tag')}</span>
+              <h2 className="tech-title">{t('tech.title')}</h2>
+
+              <div className="marquee-container">
+                {/* Row 1 (Scrolls Left) */}
+                <div className="marquee-track track-1">
+                  <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
+                  <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
+                  <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
+                  <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
+                  <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
+                  <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
+                  <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
+                  <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
+                  <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
+
+                  {/* Duplicates */}
+                  <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
+                  <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
+                  <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
+                  <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
+                  <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
+                  <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
+                  <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
+                  <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
+                  <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
+                </div>
+
+                {/* Row 2 (Scrolls Right) */}
+                <div className="marquee-track track-2">
+                  <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
+                  <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
+                  <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
+                  <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
+                  <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
+                  <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
+                  <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
+                  <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
+                  <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
+
+                  {/* Duplicates */}
+                  <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
+                  <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
+                  <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
+                  <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
+                  <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
+                  <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
+                  <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
+                  <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
+                  <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CORE CAPABILITIES */}
+          <section id="platform" className="section">
+            <div className="container">
+              <div className="text-center mb-5">
+                <span className="section-tag">{t('platform.tag')}</span>
+                <h2 className="section-title">{t('platform.title')}</h2>
+                <p className="section-subtitle">{t('platform.subtitle')}</p>
+              </div>
+
+              <div className="capabilities-grid">
+                <div className="card">
+                  <div className="capability-icon">🤖</div>
+                  <h3 className="capability-title">{t('platform.card1_title')}</h3>
+                  <p className="capability-desc">{t('platform.card1_desc')}</p>
+                </div>
+                <div className="card">
+                  <div className="capability-icon">⚙️</div>
+                  <h3 className="capability-title">{t('platform.card2_title')}</h3>
+                  <p className="capability-desc">{t('platform.card2_desc')}</p>
+                </div>
+                <div className="card">
+                  <div className="capability-icon">🧠</div>
+                  <h3 className="capability-title">{t('platform.card3_title')}</h3>
+                  <p className="capability-desc">{t('platform.card3_desc')}</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* PRODUCTS DIRECTORY */}
+          <section id="products" className="section section-alt">
+            <div className="container">
+              <div className="text-center mb-4">
+                <span className="section-tag">{t('products.tag')}</span>
+                <h2 className="section-title">{t('products.title')}</h2>
+                <p className="section-subtitle">{t('products.subtitle')}</p>
+              </div>
+
+              <div className="products-layout">
+                <div className="products-nav">
+                  <div className={`prod-tab ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-chatbot')}>
+                    <span className="prod-tab-title">{t('products.tab1')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                  <div className={`prod-tab ${activeProductTab === 'prod-voice' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-voice')}>
+                    <span className="prod-tab-title">{t('products.tab2')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                  <div className={`prod-tab ${activeProductTab === 'prod-crm' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-crm')}>
+                    <span className="prod-tab-title">{t('products.tab3')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                  <div className={`prod-tab ${activeProductTab === 'prod-email' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-email')}>
+                    <span className="prod-tab-title">{t('products.tab4')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                  <div className={`prod-tab ${activeProductTab === 'prod-social' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-social')}>
+                    <span className="prod-tab-title">{t('products.tab5')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                  <div className={`prod-tab ${activeProductTab === 'prod-saas' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-saas')}>
+                    <span className="prod-tab-title">{t('products.tab6')}</span>
+                    <span className="prod-tab-arrow">→</span>
+                  </div>
+                </div>
+
+                <div className="products-content">
+                  {/* Chatbots */}
+                  <div className={`prod-view ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">💬</div>
+                      <h3 className="prod-view-title">{t('products.view1_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view1_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view1_feat1')}</h5>
+                          <p>{t('products.view1_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view1_feat2')}</h5>
+                          <p>{t('products.view1_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view1_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view1_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view1_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view1_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a 
+                          href="/?page=ai-chatbot" 
+                          className="btn btn-secondary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage('ai-chatbot');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {t('products.view_more')}
+                        </a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Voice */}
+                  <div className={`prod-view ${activeProductTab === 'prod-voice' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">🎙️</div>
+                      <h3 className="prod-view-title">{t('products.view2_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view2_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view2_feat1')}</h5>
+                          <p>{t('products.view2_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view2_feat2')}</h5>
+                          <p>{t('products.view2_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view2_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view2_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view2_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view2_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a 
+                          href="/?page=ai-chatbot" 
+                          className="btn btn-secondary"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            setCurrentPage('ai-chatbot');
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {t('products.view_more')}
+                        </a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* CRM */}
+                  <div className={`prod-view ${activeProductTab === 'prod-crm' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">🎯</div>
+                      <h3 className="prod-view-title">{t('products.view3_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view3_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view3_feat1')}</h5>
+                          <p>{t('products.view3_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view3_feat2')}</h5>
+                          <p>{t('products.view3_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view3_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view3_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view3_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view3_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a href="/?page=ai-crm" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('products.view_more')}</a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Email */}
+                  <div className={`prod-view ${activeProductTab === 'prod-email' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">✉️</div>
+                      <h3 className="prod-view-title">{t('products.view4_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view4_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view4_feat1')}</h5>
+                          <p>{t('products.view4_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view4_feat2')}</h5>
+                          <p>{t('products.view4_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view4_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view4_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view4_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view4_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a href="/?page=ai-crm" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('products.view_more')}</a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Social */}
+                  <div className={`prod-view ${activeProductTab === 'prod-social' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">📣</div>
+                      <h3 className="prod-view-title">{t('products.view5_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view5_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view5_feat1')}</h5>
+                          <p>{t('products.view5_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view5_feat2')}</h5>
+                          <p>{t('products.view5_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view5_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view5_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view5_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view5_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a href="/?page=ai-crm" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('products.view_more')}</a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* SaaS */}
+                  <div className={`prod-view ${activeProductTab === 'prod-saas' ? 'active' : ''}`}>
+                    <div className="prod-view-header">
+                      <div className="prod-view-icon">🚀</div>
+                      <h3 className="prod-view-title">{t('products.view6_title')}</h3>
+                    </div>
+                    <p className="prod-view-desc">{t('products.view6_desc')}</p>
+                    <div className="prod-view-details">
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view6_feat1')}</h5>
+                          <p>{t('products.view6_feat1_desc')}</p>
+                        </div>
+                      </div>
+                      <div className="prod-detail-item">
+                        <span className="prod-detail-check">✓</span>
+                        <div className="prod-detail-text">
+                          <h5>{t('products.view6_feat2')}</h5>
+                          <p>{t('products.view6_feat2_desc')}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="prod-view-footer">
+                      <div className="prod-view-meta">
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view6_stat1_num')}</div>
+                          <div className="prod-meta-label">{t('products.view6_stat1_label')}</div>
+                        </div>
+                        <div className="prod-meta-stat">
+                          <div className="prod-meta-num">{t('products.view6_stat2_num')}</div>
+                          <div className="prod-meta-label">{t('products.view6_stat2_label')}</div>
+                        </div>
+                      </div>
+                      <div className="prod-view-actions">
+                        <a href="/?page=ai-crm" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('products.view_more')}</a>
+                        <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* USE CASES SECTION */}
+          <section id="usecases" className="section">
+            <div className="container">
+              <div className="text-center mb-5">
+                <span className="section-tag">{t('usecases.tag')}</span>
+                <h2 className="section-title">{t('usecases.title')}</h2>
+                <p className="section-subtitle">{t('usecases.subtitle')}</p>
+              </div>
+
+              <div className="usecases-tabs-wrapper">
+                <div className="usecases-tabs">
+                  <button className={`uc-tab ${activeUseCaseTab === 'uc-finance' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-finance')}>{t('usecases.tab1')}</button>
+                  <button className={`uc-tab ${activeUseCaseTab === 'uc-health' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-health')}>{t('usecases.tab2')}</button>
+                  <button className={`uc-tab ${activeUseCaseTab === 'uc-commerce' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-commerce')}>{t('usecases.tab3')}</button>
+                  <button className={`uc-tab ${activeUseCaseTab === 'uc-ops' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-ops')}>{t('usecases.tab4')}</button>
+                </div>
+              </div>
+
+              <div className="usecases-container">
+                {/* Finance */}
+                <div className={`uc-view ${activeUseCaseTab === 'uc-finance' ? 'active' : ''}`}>
+                  <div className="uc-content">
+                    <h3>{t('usecases.finance_title')}</h3>
+                    <p>{t('usecases.finance_desc')}</p>
+                    <div className="uc-metric-highlight">{t('usecases.finance_metric')}</div>
+                    <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
+                  </div>
+                  <div className="uc-visual">
+                    <div className="workflow-flow">
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.finance_node1')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.finance_node2')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node running">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.finance_node3')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.finance_node4')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Healthcare */}
+                <div className={`uc-view ${activeUseCaseTab === 'uc-health' ? 'active' : ''}`}>
+                  <div className="uc-content">
+                    <h3>{t('usecases.health_title')}</h3>
+                    <p>{t('usecases.health_desc')}</p>
+                    <div className="uc-metric-highlight">{t('usecases.health_metric')}</div>
+                    <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
+                  </div>
+                  <div className="uc-visual">
+                    <div className="workflow-flow">
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.health_node1')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.health_node2')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node running">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.health_node3')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.health_node4')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* E-Commerce */}
+                <div className={`uc-view ${activeUseCaseTab === 'uc-commerce' ? 'active' : ''}`}>
+                  <div className="uc-content">
+                    <h3>{t('usecases.commerce_title')}</h3>
+                    <p>{t('usecases.commerce_desc')}</p>
+                    <div className="uc-metric-highlight">{t('usecases.commerce_metric')}</div>
+                    <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
+                  </div>
+                  <div className="uc-visual">
+                    <div className="workflow-flow">
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.commerce_node1')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.commerce_node2')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node running">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.commerce_node3')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.commerce_node4')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Operations */}
+                <div className={`uc-view ${activeUseCaseTab === 'uc-ops' ? 'active' : ''}`}>
+                  <div className="uc-content">
+                    <h3>{t('usecases.ops_title')}</h3>
+                    <p>{t('usecases.ops_desc')}</p>
+                    <div className="uc-metric-highlight">{t('usecases.ops_metric')}</div>
+                    <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
+                  </div>
+                  <div className="uc-visual">
+                    <div className="workflow-flow">
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.ops_node1')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node completed">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.ops_node2')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node running">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.ops_node3')}</span>
+                      </div>
+                      <div className="flow-arrow">↓</div>
+                      <div className="flow-node">
+                        <span className="flow-node-status"></span>
+                        <span>{t('usecases.ops_node4')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* METRICS SECTION */}
+          <section className="section section-alt">
+            <div className="container">
+              <div className="metrics-row">
+                <div className="metric-card">
+                  <div className="metric-val"><span>↓</span> 60-80%</div>
+                  <div className="metric-lbl">{t('metrics.val1')}</div>
+                </div>
+                <div className="metric-card">
+                  <div className="metric-val"><span>⚡</span> 3x</div>
+                  <div className="metric-lbl">{t('metrics.val2')}</div>
+                </div>
+                <div className="metric-card">
+                  <div className="metric-val"><span>💰</span> 40%</div>
+                  <div className="metric-lbl">{t('metrics.val3')}</div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* TESTIMONIALS */}
+          <section id="testimonials" className="section">
+            <div className="container">
+              <div className="text-center mb-5">
+                <span className="section-tag">{t('trust.tag')}</span>
+                <h2 className="section-title">{t('trust.title')}</h2>
+              </div>
+
+              <div className="trust-grid">
+                <div className="trust-interactive-card">
+                  <div className="trust-image-wrapper logo-wrapper">
+                    <img src="/assets/venue-amore-logo.png" alt="Venue Amore Integration" />
+                  </div>
+                  <div className="trust-content-wrapper">
+                    <h3>{t('trust.card1_name')}</h3>
+                    <p>{t('trust.card1_quote')}</p>
+                  </div>
+                </div>
+
+                <div className="trust-interactive-card">
+                  <div className="trust-image-wrapper">
+                    <img src="/assets/trust_abstract_cool_1781364072363.png" alt="Enterprise Analytics" />
+                  </div>
+                  <div className="trust-content-wrapper">
+                    <h3>{t('trust.card2_name')}</h3>
+                    <p>{t('trust.card2_quote')}</p>
+                  </div>
+                </div>
+
+                <div className="trust-interactive-card">
+                  <div className="trust-image-wrapper">
+                    <img src="/assets/trust_abstract_dynamic_1781364086355.png" alt="Customer Experience" />
+                  </div>
+                  <div className="trust-content-wrapper">
+                    <h3>{t('trust.card3_name')}</h3>
+                    <p>{t('trust.card3_quote')}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CLIENTS & PARTNERS */}
+          <section className="partners-section">
+            <div className="container">
+              <div className="text-center mb-5">
+                <h2 className="partners-title">{t('partners.title')}</h2>
+                <p className="partners-subtitle">{t('partners.subtitle')}</p>
+              </div>
+
+              <div className="partners-marquee-container">
+                <div className="partners-marquee-track">
+                  <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
+                  <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
+                  <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
+                  <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
+                  <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
+
+                  {/* Duplicates */}
+                  <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
+                  <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
+                  <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
+                  <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
+                  <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* FAQ SECTION */}
+          <section id="faq" className="section section-alt">
+            <div className="container">
+              <div className="text-center mb-5">
+                <span className="section-tag">{t('faq.tag')}</span>
+                <h2 className="section-title">{t('faq.title')}</h2>
+                <p className="section-subtitle">{t('faq.subtitle')}</p>
+              </div>
+
+              <div className="faq-list">
+                {[0, 1, 2, 3, 4].map((index) => (
+                  <div className={`faq-item ${activeFaqIndex === index ? 'active' : ''}`} key={index}>
+                    <div className="faq-header" onClick={() => setActiveFaqIndex(activeFaqIndex === index ? null : index)}>
+                      <h3 className="faq-question">{t(`faq.q${index + 1}`)}</h3>
+                      <span className="faq-icon">{activeFaqIndex === index ? '-' : '+'}</span>
+                    </div>
+                    <div
+                      className="faq-body"
+                      style={{
+                        maxHeight: activeFaqIndex === index ? '250px' : '0px',
+                        transition: 'max-height 0.35s ease'
+                      }}
+                    >
+                      <div className="faq-content">
+                        {t(`faq.a${index + 1}`)}
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      {/* TRUST STRIP / TECH STACK */}
-      <section className="trust-strip">
-        <div className="container trust-content">
-          <span className="trust-text">{t('tech.tag')}</span>
-          <h2 className="tech-title">{t('tech.title')}</h2>
+          {/* CONTACT / LEAD FORM */}
+          <section id="contact" className="section">
+            <div className="container contact-grid">
+              <div className="contact-info">
+                <span className="section-tag">{t('contact.tag')}</span>
+                <h3>{t('contact.title')}</h3>
+                <p>{t('contact.desc')}</p>
 
-          <div className="marquee-container">
-            {/* Row 1 (Scrolls Left) */}
-            <div className="marquee-track track-1">
-              <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
-              <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
-              <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
-              <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
-              <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
-              <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
-              <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
-              <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
-              <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
-
-              {/* Duplicates */}
-              <div className="marquee-item perplexity-item"><img src="/assets/perplexity.png" alt="Perplexity" /></div>
-              <div className="marquee-item n8n-item"><img src="/assets/n8n-logo.png" alt="n8n" /></div>
-              <div className="marquee-item elevenlabs-item"><img src="/assets/elevenlabs.png" alt="ElevenLabs" /></div>
-              <div className="marquee-item whatsapp-item"><img src="/assets/whatsapp.png" alt="WhatsApp" /></div>
-              <div className="marquee-item apify-item"><img src="/assets/apify-logo.png" alt="Apify" /></div>
-              <div className="marquee-item chatgpt-item"><img src="/assets/chatgpt.png" alt="ChatGPT" /></div>
-              <div className="marquee-item claude-item"><img src="/assets/claude.png" alt="Claude" /></div>
-              <div className="marquee-item gemini-item"><img src="/assets/gemini.png" alt="Gemini" /></div>
-              <div className="marquee-item copilot-item"><img src="/assets/copilot.png" alt="Microsoft Copilot" /></div>
-            </div>
-
-            {/* Row 2 (Scrolls Right) */}
-            <div className="marquee-track track-2">
-              <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
-              <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
-              <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
-              <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
-              <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
-              <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
-              <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
-              <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
-              <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
-
-              {/* Duplicates */}
-              <div className="marquee-item figma-item"><img src="/assets/figma.png" alt="Figma" /></div>
-              <div className="marquee-item canva-item"><img src="/assets/canva-ai.png" alt="Canva AI" /></div>
-              <div className="marquee-item adobe-item"><img src="/assets/adobe-firefly.png" alt="Adobe Firefly" /></div>
-              <div className="marquee-item midjourney-item"><img src="/assets/midjourney.png" alt="Midjourney" /></div>
-              <div className="marquee-item retell-item"><img src="/assets/retell-ai.png" alt="Retell AI" /></div>
-              <div className="marquee-item topaz-item"><img src="/assets/topaz.png" alt="Topaz Labs" /></div>
-              <div className="marquee-item airtable-item"><img src="/assets/airtable.png" alt="Airtable" /></div>
-              <div className="marquee-item remini-item"><img src="/assets/remini.png" alt="Remini" /></div>
-              <div className="marquee-item trello-item"><img src="/assets/trello.png" alt="Trello" /></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CORE CAPABILITIES */}
-      <section id="platform" className="section">
-        <div className="container">
-          <div className="text-center mb-5">
-            <span className="section-tag">{t('platform.tag')}</span>
-            <h2 className="section-title">{t('platform.title')}</h2>
-            <p className="section-subtitle">{t('platform.subtitle')}</p>
-          </div>
-
-          <div className="capabilities-grid">
-            <div className="card">
-              <div className="capability-icon">🤖</div>
-              <h3 className="capability-title">{t('platform.card1_title')}</h3>
-              <p className="capability-desc">{t('platform.card1_desc')}</p>
-            </div>
-            <div className="card">
-              <div className="capability-icon">⚙️</div>
-              <h3 className="capability-title">{t('platform.card2_title')}</h3>
-              <p className="capability-desc">{t('platform.card2_desc')}</p>
-            </div>
-            <div className="card">
-              <div className="capability-icon">🧠</div>
-              <h3 className="capability-title">{t('platform.card3_title')}</h3>
-              <p className="capability-desc">{t('platform.card3_desc')}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* PRODUCTS DIRECTORY */}
-      <section id="products" className="section section-alt">
-        <div className="container">
-          <div className="text-center mb-4">
-            <span className="section-tag">{t('products.tag')}</span>
-            <h2 className="section-title">{t('products.title')}</h2>
-            <p className="section-subtitle">{t('products.subtitle')}</p>
-          </div>
-
-          <div className="products-layout">
-            <div className="products-nav">
-              <div className={`prod-tab ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-chatbot')}>
-                <span className="prod-tab-title">{t('products.tab1')}</span>
-                <span className="prod-tab-arrow">→</span>
+                <div className="info-list">
+                  <div className="info-row">
+                    <div className="info-icon">✉️</div>
+                    <div>
+                      <div className="info-label">{t('contact.inquiry')}</div>
+                      <div className="info-val">support@digimabbleai.com</div>
+                    </div>
+                  </div>
+                  <div className="info-row">
+                    <div className="info-icon">🛡️</div>
+                    <div>
+                      <div className="info-label">{t('contact.standards')}</div>
+                      <div className="info-val">{t('contact.standards_val')}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-voice' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-voice')}>
-                <span className="prod-tab-title">{t('products.tab2')}</span>
-                <span className="prod-tab-arrow">→</span>
-              </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-crm' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-crm')}>
-                <span className="prod-tab-title">{t('products.tab3')}</span>
-                <span className="prod-tab-arrow">→</span>
-              </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-email' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-email')}>
-                <span className="prod-tab-title">{t('products.tab4')}</span>
-                <span className="prod-tab-arrow">→</span>
-              </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-social' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-social')}>
-                <span className="prod-tab-title">{t('products.tab5')}</span>
-                <span className="prod-tab-arrow">→</span>
-              </div>
-              <div className={`prod-tab ${activeProductTab === 'prod-saas' ? 'active' : ''}`} onClick={() => setActiveProductTab('prod-saas')}>
-                <span className="prod-tab-title">{t('products.tab6')}</span>
-                <span className="prod-tab-arrow">→</span>
+
+              <div className="contact-card">
+                <form id="corporate-contact-form" onSubmit={handleFormSubmit}>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="cf-name">{t('contact.label_name')}</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        id="cf-name"
+                        required
+                        placeholder={t('contact.ph_name')}
+                        value={formData.name}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="cf-email">{t('contact.label_email')}</label>
+                      <input
+                        className="form-input"
+                        type="email"
+                        id="cf-email"
+                        required
+                        placeholder={t('contact.ph_email')}
+                        value={formData.email}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                  </div>
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="cf-company">{t('contact.label_company')}</label>
+                      <input
+                        className="form-input"
+                        type="text"
+                        id="cf-company"
+                        required
+                        placeholder={t('contact.ph_company')}
+                        value={formData.company}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label" htmlFor="cf-product">{t('contact.label_product')}</label>
+                      <select
+                        className="form-select"
+                        id="cf-product"
+                        required
+                        value={formData.product}
+                        onChange={handleInputChange}
+                      >
+                        <option value="" disabled>{t('contact.opt_select')}</option>
+                        <option value="AI Chatbots">{t('contact.opt1')}</option>
+                        <option value="AI Voice Bots">{t('contact.opt2')}</option>
+                        <option value="AI CRM Integrations">{t('contact.opt3')}</option>
+                        <option value="AI Email Management">{t('contact.opt4')}</option>
+                        <option value="Custom SaaS Pipelines">{t('contact.opt5')}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="form-group form-group-full">
+                    <label className="form-label" htmlFor="cf-message">{t('contact.label_message')}</label>
+                    <textarea
+                      className="form-textarea"
+                      id="cf-message"
+                      placeholder={t('contact.ph_msg')}
+                      value={formData.message}
+                      onChange={handleInputChange}
+                    ></textarea>
+                  </div>
+
+                  <button className="btn btn-primary" type="submit" style={{ width: '100%' }}>{getSubmitButtonText()}</button>
+                  <div className={`form-status ${submitStatus.submitted ? 'success' : ''}`} style={{ display: submitStatus.submitted ? 'block' : 'none' }}>
+                    {submitStatus.message}
+                  </div>
+                </form>
               </div>
             </div>
+          </section>
 
-            <div className="products-content">
-              {/* Chatbots */}
-              <div className={`prod-view ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">💬</div>
-                  <h3 className="prod-view-title">{t('products.view1_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view1_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view1_feat1')}</h5>
-                      <p>{t('products.view1_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view1_feat2')}</h5>
-                      <p>{t('products.view1_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view1_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view1_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view1_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view1_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Voice */}
-              <div className={`prod-view ${activeProductTab === 'prod-voice' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">🎙️</div>
-                  <h3 className="prod-view-title">{t('products.view2_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view2_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view2_feat1')}</h5>
-                      <p>{t('products.view2_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view2_feat2')}</h5>
-                      <p>{t('products.view2_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view2_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view2_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view2_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view2_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* CRM */}
-              <div className={`prod-view ${activeProductTab === 'prod-crm' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">🎯</div>
-                  <h3 className="prod-view-title">{t('products.view3_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view3_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view3_feat1')}</h5>
-                      <p>{t('products.view3_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view3_feat2')}</h5>
-                      <p>{t('products.view3_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view3_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view3_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view3_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view3_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className={`prod-view ${activeProductTab === 'prod-email' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">✉️</div>
-                  <h3 className="prod-view-title">{t('products.view4_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view4_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view4_feat1')}</h5>
-                      <p>{t('products.view4_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view4_feat2')}</h5>
-                      <p>{t('products.view4_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view4_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view4_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view4_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view4_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Social */}
-              <div className={`prod-view ${activeProductTab === 'prod-social' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">📣</div>
-                  <h3 className="prod-view-title">{t('products.view5_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view5_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view5_feat1')}</h5>
-                      <p>{t('products.view5_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view5_feat2')}</h5>
-                      <p>{t('products.view5_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view5_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view5_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view5_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view5_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-
-              {/* SaaS */}
-              <div className={`prod-view ${activeProductTab === 'prod-saas' ? 'active' : ''}`}>
-                <div className="prod-view-header">
-                  <div className="prod-view-icon">🚀</div>
-                  <h3 className="prod-view-title">{t('products.view6_title')}</h3>
-                </div>
-                <p className="prod-view-desc">{t('products.view6_desc')}</p>
-                <div className="prod-view-details">
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view6_feat1')}</h5>
-                      <p>{t('products.view6_feat1_desc')}</p>
-                    </div>
-                  </div>
-                  <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
-                    <div className="prod-detail-text">
-                      <h5>{t('products.view6_feat2')}</h5>
-                      <p>{t('products.view6_feat2_desc')}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="prod-view-footer">
-                  <div className="prod-view-meta">
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view6_stat1_num')}</div>
-                      <div className="prod-meta-label">{t('products.view6_stat1_label')}</div>
-                    </div>
-                    <div className="prod-meta-stat">
-                      <div className="prod-meta-num">{t('products.view6_stat2_num')}</div>
-                      <div className="prod-meta-label">{t('products.view6_stat2_label')}</div>
-                    </div>
-                  </div>
-                  <div className="prod-view-actions">
-                    <a href="#" className="btn btn-secondary" onClick={(e) => { e.preventDefault(); setCurrentPage('ai-crm'); window.scrollTo(0, 0); }}>{t('products.view_more')}</a>
-                    <a href="#contact" className="btn btn-primary" onClick={(e) => handleNavLinkClick(e, 'contact')}>{t('products.view_cta')}</a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* USE CASES SECTION */}
-      <section id="usecases" className="section">
-        <div className="container">
-          <div className="text-center mb-5">
-            <span className="section-tag">{t('usecases.tag')}</span>
-            <h2 className="section-title">{t('usecases.title')}</h2>
-            <p className="section-subtitle">{t('usecases.subtitle')}</p>
-          </div>
-
-          <div className="usecases-tabs-wrapper">
-            <div className="usecases-tabs">
-              <button className={`uc-tab ${activeUseCaseTab === 'uc-finance' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-finance')}>{t('usecases.tab1')}</button>
-              <button className={`uc-tab ${activeUseCaseTab === 'uc-health' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-health')}>{t('usecases.tab2')}</button>
-              <button className={`uc-tab ${activeUseCaseTab === 'uc-commerce' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-commerce')}>{t('usecases.tab3')}</button>
-              <button className={`uc-tab ${activeUseCaseTab === 'uc-ops' ? 'active' : ''}`} onClick={() => setActiveUseCaseTab('uc-ops')}>{t('usecases.tab4')}</button>
-            </div>
-          </div>
-
-          <div className="usecases-container">
-            {/* Finance */}
-            <div className={`uc-view ${activeUseCaseTab === 'uc-finance' ? 'active' : ''}`}>
-              <div className="uc-content">
-                <h3>{t('usecases.finance_title')}</h3>
-                <p>{t('usecases.finance_desc')}</p>
-                <div className="uc-metric-highlight">{t('usecases.finance_metric')}</div>
-                <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
-              </div>
-              <div className="uc-visual">
-                <div className="workflow-flow">
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.finance_node1')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.finance_node2')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node running">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.finance_node3')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.finance_node4')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Healthcare */}
-            <div className={`uc-view ${activeUseCaseTab === 'uc-health' ? 'active' : ''}`}>
-              <div className="uc-content">
-                <h3>{t('usecases.health_title')}</h3>
-                <p>{t('usecases.health_desc')}</p>
-                <div className="uc-metric-highlight">{t('usecases.health_metric')}</div>
-                <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
-              </div>
-              <div className="uc-visual">
-                <div className="workflow-flow">
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.health_node1')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.health_node2')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node running">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.health_node3')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.health_node4')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* E-Commerce */}
-            <div className={`uc-view ${activeUseCaseTab === 'uc-commerce' ? 'active' : ''}`}>
-              <div className="uc-content">
-                <h3>{t('usecases.commerce_title')}</h3>
-                <p>{t('usecases.commerce_desc')}</p>
-                <div className="uc-metric-highlight">{t('usecases.commerce_metric')}</div>
-                <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
-              </div>
-              <div className="uc-visual">
-                <div className="workflow-flow">
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.commerce_node1')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.commerce_node2')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node running">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.commerce_node3')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.commerce_node4')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Operations */}
-            <div className={`uc-view ${activeUseCaseTab === 'uc-ops' ? 'active' : ''}`}>
-              <div className="uc-content">
-                <h3>{t('usecases.ops_title')}</h3>
-                <p>{t('usecases.ops_desc')}</p>
-                <div className="uc-metric-highlight">{t('usecases.ops_metric')}</div>
-                <a href="#contact" className="btn btn-secondary">{t('usecases.cta')}</a>
-              </div>
-              <div className="uc-visual">
-                <div className="workflow-flow">
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.ops_node1')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node completed">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.ops_node2')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node running">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.ops_node3')}</span>
-                  </div>
-                  <div className="flow-arrow">↓</div>
-                  <div className="flow-node">
-                    <span className="flow-node-status"></span>
-                    <span>{t('usecases.ops_node4')}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* METRICS SECTION */}
-      <section className="section section-alt">
-        <div className="container">
-          <div className="metrics-row">
-            <div className="metric-card">
-              <div className="metric-val"><span>↓</span> 60-80%</div>
-              <div className="metric-lbl">{t('metrics.val1')}</div>
-            </div>
-            <div className="metric-card">
-              <div className="metric-val"><span>⚡</span> 3x</div>
-              <div className="metric-lbl">{t('metrics.val2')}</div>
-            </div>
-            <div className="metric-card">
-              <div className="metric-val"><span>💰</span> 40%</div>
-              <div className="metric-lbl">{t('metrics.val3')}</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section id="testimonials" className="section">
-        <div className="container">
-          <div className="text-center mb-5">
-            <span className="section-tag">{t('trust.tag')}</span>
-            <h2 className="section-title">{t('trust.title')}</h2>
-          </div>
-
-          <div className="trust-grid">
-            <div className="trust-interactive-card">
-              <div className="trust-image-wrapper logo-wrapper">
-                <img src="/assets/venue-amore-logo.png" alt="Venue Amore Integration" />
-              </div>
-              <div className="trust-content-wrapper">
-                <h3>{t('trust.card1_name')}</h3>
-                <p>{t('trust.card1_quote')}</p>
-              </div>
-            </div>
-
-            <div className="trust-interactive-card">
-              <div className="trust-image-wrapper">
-                <img src="/assets/trust_abstract_cool_1781364072363.png" alt="Enterprise Analytics" />
-              </div>
-              <div className="trust-content-wrapper">
-                <h3>{t('trust.card2_name')}</h3>
-                <p>{t('trust.card2_quote')}</p>
-              </div>
-            </div>
-
-            <div className="trust-interactive-card">
-              <div className="trust-image-wrapper">
-                <img src="/assets/trust_abstract_dynamic_1781364086355.png" alt="Customer Experience" />
-              </div>
-              <div className="trust-content-wrapper">
-                <h3>{t('trust.card3_name')}</h3>
-                <p>{t('trust.card3_quote')}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CLIENTS & PARTNERS */}
-      <section className="partners-section">
-        <div className="container">
-          <div className="text-center mb-5">
-            <h2 className="partners-title">{t('partners.title')}</h2>
-            <p className="partners-subtitle">{t('partners.subtitle')}</p>
-          </div>
-
-          <div className="partners-marquee-container">
-            <div className="partners-marquee-track">
-              <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
-              <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
-              <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
-              <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
-              <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
-
-              {/* Duplicates */}
-              <div className="partner-card"><img src="/assets/anima_corpus.png" alt="Anima Corpus" /></div>
-              <div className="partner-card"><img src="/assets/3m.png" alt="3M Invest" /></div>
-              <div className="partner-card"><img src="/assets/client.png" alt="Agoria" /></div>
-              <div className="partner-card"><img src="/assets/madello-logo.png" alt="Madello" /></div>
-              <div className="partner-card"><img src="/assets/BECI-.png" alt="Beci" /></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ SECTION */}
-      <section id="faq" className="section section-alt">
-        <div className="container">
-          <div className="text-center mb-5">
-            <span className="section-tag">{t('faq.tag')}</span>
-            <h2 className="section-title">{t('faq.title')}</h2>
-            <p className="section-subtitle">{t('faq.subtitle')}</p>
-          </div>
-
-          <div className="faq-list">
-            {[0, 1, 2, 3, 4].map((index) => (
-              <div className={`faq-item ${activeFaqIndex === index ? 'active' : ''}`} key={index}>
-                <div className="faq-header" onClick={() => setActiveFaqIndex(activeFaqIndex === index ? null : index)}>
-                  <h3 className="faq-question">{t(`faq.q${index + 1}`)}</h3>
-                  <span className="faq-icon">{activeFaqIndex === index ? '-' : '+'}</span>
-                </div>
-                <div
-                  className="faq-body"
-                  style={{
-                    maxHeight: activeFaqIndex === index ? '250px' : '0px',
-                    transition: 'max-height 0.35s ease'
-                  }}
-                >
-                  <div className="faq-content">
-                    {t(`faq.a${index + 1}`)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CONTACT / LEAD FORM */}
-      <section id="contact" className="section">
-        <div className="container contact-grid">
-          <div className="contact-info">
-            <span className="section-tag">{t('contact.tag')}</span>
-            <h3>{t('contact.title')}</h3>
-            <p>{t('contact.desc')}</p>
-
-            <div className="info-list">
-              <div className="info-row">
-                <div className="info-icon">✉️</div>
-                <div>
-                  <div className="info-label">{t('contact.inquiry')}</div>
-                  <div className="info-val">support@digimabbleai.com</div>
-                </div>
-              </div>
-              <div className="info-row">
-                <div className="info-icon">🛡️</div>
-                <div>
-                  <div className="info-label">{t('contact.standards')}</div>
-                  <div className="info-val">{t('contact.standards_val')}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="contact-card">
-            <form id="corporate-contact-form" onSubmit={handleFormSubmit}>
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cf-name">{t('contact.label_name')}</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    id="cf-name"
-                    required
-                    placeholder={t('contact.ph_name')}
-                    value={formData.name}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cf-email">{t('contact.label_email')}</label>
-                  <input
-                    className="form-input"
-                    type="email"
-                    id="cf-email"
-                    required
-                    placeholder={t('contact.ph_email')}
-                    value={formData.email}
-                    onChange={handleInputChange}
-                  />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cf-company">{t('contact.label_company')}</label>
-                  <input
-                    className="form-input"
-                    type="text"
-                    id="cf-company"
-                    required
-                    placeholder={t('contact.ph_company')}
-                    value={formData.company}
-                    onChange={handleInputChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <label className="form-label" htmlFor="cf-product">{t('contact.label_product')}</label>
-                  <select
-                    className="form-select"
-                    id="cf-product"
-                    required
-                    value={formData.product}
-                    onChange={handleInputChange}
-                  >
-                    <option value="" disabled>{t('contact.opt_select')}</option>
-                    <option value="AI Chatbots">{t('contact.opt1')}</option>
-                    <option value="AI Voice Bots">{t('contact.opt2')}</option>
-                    <option value="AI CRM Integrations">{t('contact.opt3')}</option>
-                    <option value="AI Email Management">{t('contact.opt4')}</option>
-                    <option value="Custom SaaS Pipelines">{t('contact.opt5')}</option>
-                  </select>
-                </div>
-              </div>
-              <div className="form-group form-group-full">
-                <label className="form-label" htmlFor="cf-message">{t('contact.label_message')}</label>
-                <textarea
-                  className="form-textarea"
-                  id="cf-message"
-                  placeholder={t('contact.ph_msg')}
-                  value={formData.message}
-                  onChange={handleInputChange}
-                ></textarea>
-              </div>
-
-              <button className="btn btn-primary" type="submit" style={{ width: '100%' }}>{getSubmitButtonText()}</button>
-              <div className={`form-status ${submitStatus.submitted ? 'success' : ''}`} style={{ display: submitStatus.submitted ? 'block' : 'none' }}>
-                {submitStatus.message}
-              </div>
-            </form>
-          </div>
-        </div>
-      </section>
-
-              </>
+        </>
       )}
 
       {/* FOOTER */}
@@ -1207,6 +1267,22 @@ export default function App() {
           </div>
         </div>
       </footer>
+
+      {/* Floating global chat widget */}
+      <div className="global-chat-widget" onClick={(e) => { e.preventDefault(); const el = document.getElementById('contact'); if (el) el.scrollIntoView({ behavior: 'smooth' }); }}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          <polyline points="9 11 12 14 22 4"></polyline>
+        </svg>
+      </div>
+
+      {/* Floating scroll-to-top button */}
+      <div className={`global-scroll-top ${showScrollTop ? 'visible' : ''}`} onClick={scrollToTop}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="12" y1="19" x2="12" y2="5"></line>
+          <polyline points="5 12 12 5 19 12"></polyline>
+        </svg>
+      </div>
     </>
   );
 }
