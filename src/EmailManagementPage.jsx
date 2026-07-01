@@ -157,7 +157,7 @@ export default function EmailManagementPage() {
 
       {/* HERO SECTION */}
       <section className="email-hero-section">
-        <div className="container email-hero-grid">
+        <div className="container email-hero-grid email-hero-container-wide">
           <div className="email-hero-content">
             <h1 className="email-hero-title">{t('hero.title')}</h1>
             <p className="email-hero-subtitle">{t('hero.subtitle')}</p>

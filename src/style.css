@@ -3964,9 +3964,14 @@ ul {
   overflow: hidden;
 }
 
+.email-hero-container-wide {
+  max-width: 1360px !important;
+  width: 95%;
+}
+
 .email-hero-grid {
   display: grid;
-  grid-template-columns: 0.5fr 1.5fr;
+  grid-template-columns: 0.45fr 1.55fr;
   gap: 60px;
   align-items: center;
 }
@@ -4004,8 +4009,9 @@ ul {
 
 .email-hero-mockup-img {
   width: 100%;
+  max-width: 100%;
   height: auto;
-  max-height: 650px;
+  max-height: 800px;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 25px 40px rgba(0, 19, 99, 0.08));
