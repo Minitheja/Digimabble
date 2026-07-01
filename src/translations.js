@@ -24,6 +24,26 @@ export const translations = {
       cta_products: "Explore AI Products",
       terminal_title: "dmai://agent-execution-logs"
     },
+    about: {
+      tag: "About Us",
+      title: "Empowering the Future with AI Driven Innovation",
+      subtitle1: "At Digi Mabble, we believe that artificial intelligence isn't just a buzzword — it's a transformative force for businesses of all sizes.",
+      subtitle2: "Our mission is to build intelligent, human-centric systems that make technology accessible, reliable, and powerful for every organization.",
+      btn_more: "View More",
+      btn_less: "View Less",
+      expanded_title1: "Our Vision",
+      expanded_desc1: "To lead the global transition into autonomous enterprise infrastructure, allowing organizations to operate at peak intelligence.",
+      expanded_title2: "Our Core Values",
+      expanded_desc2: "Rooted in GDPR compliance, absolute data governance, reliability, and human-centric workflows that empower teams.",
+      stat1_num: "2k+",
+      stat1_lbl: "Successful Implementations",
+      stat2_num: "95%",
+      stat2_lbl: "Client Satisfaction Rate",
+      stat3_num: "40+",
+      stat3_lbl: "Awards & Recognitions",
+      stat4_num: "73%",
+      stat4_lbl: "Growth & Expansion"
+    },
     tech: {
       tag: "Our Technology Stack",
       title: "Tools We Use"
@@ -180,10 +200,10 @@ export const translations = {
       tag: "Industry Implementation",
       title: "AI Workflows in Action",
       subtitle: "See how enterprise teams optimize operational speed and lower overhead with our AI agents.",
-      tab1: "🏦 Finance Automation",
-      tab2: "🏥 Healthcare Workflows",
-      tab3: "🛒 E-Commerce Operations",
-      tab4: "🏢 Internal Business Ops",
+      tab1: "Finance Automation",
+      tab2: "Healthcare Workflows",
+      tab3: "E-Commerce Operations",
+      tab4: "Internal Business Ops",
       finance_title: "Automated Audit Prep & Deal Flow",
       finance_desc: "Deploy AI compliance officers that continually review ledger items against international regulations, compiling audits automatically to save months of manual analysis.",
       finance_metric: "Reduce transaction reporting prep time by 80% using autonomous compliance agents.",
@@ -215,9 +235,15 @@ export const translations = {
       cta: "Request Case Study"
     },
     metrics: {
+      tag: "Impact",
+      title: "Measurable Results",
+      subtitle: "Our custom-designed AI pipelines deliver immediate efficiency gains, overhead reduction, and accelerated decision-making cycles.",
       val1: "Manual Workload Reduction",
+      desc1: "Free up valuable team hours by automating repetitive data entry, administrative tasks, and back-office routing.",
       val2: "Faster Decision Cycles",
-      val3: "Operational Cost Savings"
+      desc2: "Accelerate approvals, triage high-priority escalations instantly, and retrieve critical customer contexts in seconds.",
+      val3: "Operational Cost Savings",
+      desc3: "Minimize human overhead, eliminate execution errors, and optimize licensing costs with modular, autonomous agent structures."
     },
     trust: {
       tag: "Client Trust",
@@ -311,6 +337,26 @@ export const translations = {
       cta_call: "Prendre rendez-vous",
       cta_products: "Explorer les produits",
       terminal_title: "dmai://journaux-d-execution-des-agents"
+    },
+    about: {
+      tag: "À Propos de Nous",
+      title: "Façonner l'avenir grâce à l'innovation IA",
+      subtitle1: "Chez Digi Mabble, nous pensons que l'intelligence artificielle n'est pas qu'un mot à la mode — c'est une force de transformation pour toutes les entreprises.",
+      subtitle2: "Notre mission est de concevoir des systèmes intelligents et humains pour rendre la technologie accessible et fiable.",
+      btn_more: "En savoir plus",
+      btn_less: "Réduire",
+      expanded_title1: "Notre Vision",
+      expanded_desc1: "Mener la transition mondiale vers des infrastructures d'entreprise autonomes, permettant aux organisations de fonctionner au maximum de leur intelligence.",
+      expanded_title2: "Nos Valeurs Fondamentales",
+      expanded_desc2: "Ancrées dans la conformité RGPD, une gouvernance absolue des données et des flux de travail centrés sur l'humain.",
+      stat1_num: "2k+",
+      stat1_lbl: "Implémentations Réussies",
+      stat2_num: "95%",
+      stat2_lbl: "Taux de Satisfaction Client",
+      stat3_num: "40+",
+      stat3_lbl: "Prix & Distinctions",
+      stat4_num: "73%",
+      stat4_lbl: "Croissance & Expansion"
     },
     tech: {
       tag: "Notre pile technologique",
@@ -468,10 +514,10 @@ export const translations = {
       tag: "Mise en œuvre sectorielle",
       title: "Flux de travail IA en action",
       subtitle: "Découvrez comment nos agents IA permettent aux équipes d'optimiser leur vitesse d'exécution et de réduire leurs coûts.",
-      tab1: "🏦 Automats financiers",
-      tab2: "🏥 Flux de santé",
-      tab3: "🛒 Opérations e-commerce",
-      tab4: "🏢 Opérations internes",
+      tab1: "Automats financiers",
+      tab2: "Flux de santé",
+      tab3: "Opérations e-commerce",
+      tab4: "Opérations internes",
       finance_title: "Préparation d'audit & Deal Flow automatisés",
       finance_desc: "Déployez des auditeurs IA conformes qui examinent en continu les transactions bancaires et préparent les rapports d'audit réglementaires.",
       finance_metric: "Réduction de 80% du temps de préparation des rapports grâce aux agents de conformité.",
@@ -503,9 +549,15 @@ export const translations = {
       cta: "Demander l'étude de cas"
     },
     metrics: {
+      tag: "Impact",
+      title: "Résultats Mesurables",
+      subtitle: "Nos pipelines d'IA sur mesure offrent des gains d'efficacité immédiats, une réduction des frais généraux et des cycles de décision accélérés.",
       val1: "De réduction de charge de travail manuelle",
+      desc1: "Libérez des heures précieuses pour vos équipes en automatisant la saisie de données répétitive et les tâches administratives.",
       val2: "Cycles de décision plus rapides",
-      val3: "D'économies sur les coûts opérationnels"
+      desc2: "Accélérez les approbations, triez instantanément les escalades prioritaires et récupérez les contextes clients en quelques secondes.",
+      val3: "D'économies sur les coûts opérationnels",
+      desc3: "Réduisez les frais généraux humains, éliminez les erreurs d'exécution et optimisez vos coûts d'infrastructure."
     },
     trust: {
       tag: "Confiance Client",
@@ -599,6 +651,26 @@ export const translations = {
       cta_call: "Boek een Strategiegesprek",
       cta_products: "Ontdek AI Producten",
       terminal_title: "dmai://agent-uitvoeringslogs"
+    },
+    about: {
+      tag: "Over Ons",
+      title: "De toekomst versterken met AI-gedreven innovatie",
+      subtitle1: "Bij Digi Mabble geloven we dat kunstmatige intelligentie niet zomaar een modewoord is — het is een transformerende kracht voor bedrijven van elke omvang.",
+      subtitle2: "Onze missie is om intelligente, mensgerichte systemen te bouwen.",
+      btn_more: "Bekijk Meer",
+      btn_less: "Bekijk Minder",
+      expanded_title1: "Onze Visie",
+      expanded_desc1: "Het leiden van de wereldwijde transitie naar autonome enterprise-infrastructuren, waardoor organisaties op topniveau kunnen presteren.",
+      expanded_title2: "Onze Kernwaarden",
+      expanded_desc2: "Geworteld in AVG-naleving, absolute datagovernance, betrouwbaarheid en mensgerichte workflows die teams versterken.",
+      stat1_num: "2k+",
+      stat1_lbl: "Succesvolle Implementaties",
+      stat2_num: "95%",
+      stat2_lbl: "Klanttevredenheid",
+      stat3_num: "40+",
+      stat3_lbl: "Awards & Erkenningen",
+      stat4_num: "73%",
+      stat4_lbl: "Groei & Expansie"
     },
     tech: {
       tag: "Onze Technologie Stack",
@@ -756,10 +828,10 @@ export const translations = {
       tag: "Sector Implementatie",
       title: "AI Workflows in Actie",
       subtitle: "Zie hoe enterprise teams operationele snelheid verhogen en kosten verlagen met onze AI-agenten.",
-      tab1: "🏦 Financiële Automatisering",
-      tab2: "🏥 Zorg Workflows",
-      tab3: "🛒 E-Commerce Operations",
-      tab4: "🏢 Interne Bedrijfsprocessen",
+      tab1: "Financiële Automatisering",
+      tab2: "Zorg Workflows",
+      tab3: "E-Commerce Operations",
+      tab4: "Interne Bedrijfsprocessen",
       finance_title: "Geautomatiseerde Audit Prep & Deal Flow",
       finance_desc: "Zet compliance-agenten in die transacties controleren op basis van wet- en regelgeving, en automatisch auditrapporten opstellen.",
       finance_metric: "Verminder de voorbereidingstijd voor auditrapportage met 80% via slimme compliance-agenten.",
@@ -791,9 +863,15 @@ export const translations = {
       cta: "Vraag Case Study Aan"
     },
     metrics: {
+      tag: "Impact",
+      title: "Meetbare Resultaten",
+      subtitle: "Onze op maat ontworpen AI-pipelines leveren directe efficiëntiewinst, lagere overheadkosten en snellere besluitvorming.",
       val1: "Vermindering van handmatige werklast",
+      desc1: "Bespaar waardevolle teamuren door repetitieve gegevensinvoer, administratieve taken en backoffice-routering te automatiseren.",
       val2: "Snellere besluitvorming",
-      val3: "Besparing op operationele kosten"
+      desc2: "Versnel goedkeuringen, classificeer prioritaire escalaties direct en haal kritieke klantcontext binnen enkele seconden op.",
+      val3: "Besparing op operationele kosten",
+      desc3: "Minimaliseer personeelskosten, elimineer uitvoeringsfouten en optimaliseer licentiekosten met modulaire AI-agenten."
     },
     trust: {
       tag: "Klantvertrouwen",
@@ -888,6 +966,26 @@ export const translations = {
       cta_products: "Explorar productos de IA",
       terminal_title: "dmai://registros-de-ejecucion-de-agentes"
     },
+    about: {
+      tag: "Sobre Nosotros",
+      title: "Impulsando el futuro con innovación basada en IA",
+      subtitle1: "En Digi Mabble creemos que la inteligencia artificial no es solo una moda: es una fuerza transformadora para empresas de todos los tamaños.",
+      subtitle2: "Nuestra misión es construir sistemas inteligentes y centrados en las personas.",
+      btn_more: "Ver Más",
+      btn_less: "Ver Menos",
+      expanded_title1: "Nuestra Visión",
+      expanded_desc1: "Liderar la transición global hacia infraestructuras empresariales autónomas, permitiendo que las organizaciones operen a su máxima capacidad.",
+      expanded_title2: "Nuestros Valores",
+      expanded_desc2: "Basados en el cumplimiento de GDPR, la gobernanza de datos y flujos de trabajo que potencian a los equipos humanos.",
+      stat1_num: "2k+",
+      stat1_lbl: "Implementaciones Exitosas",
+      stat2_num: "95%",
+      stat2_lbl: "Satisfacción del Cliente",
+      stat3_num: "40+",
+      stat3_lbl: "Premios y Reconocimientos",
+      stat4_num: "73%",
+      stat4_lbl: "Crecimiento y Expansión"
+    },
     tech: {
       tag: "Nuestra pila tecnológica",
       title: "Herramientas que utilizamos"
@@ -980,10 +1078,10 @@ export const translations = {
       tag: "Implementación en la industria",
       title: "Flujos de trabajo de IA en acción",
       subtitle: "Vea cómo los equipos empresariales aceleran sus operaciones y reducen costos fijos con nuestros agentes de IA.",
-      tab1: "🏦 Automatización financiera",
-      tab2: "🏥 Flujos médicos",
-      tab3: "🛒 Operaciones e-commerce",
-      tab4: "🏢 Operaciones internas",
+      tab1: "Automatización financiera",
+      tab2: "Flujos médicos",
+      tab3: "Operaciones e-commerce",
+      tab4: "Operaciones internas",
       finance_title: "Auditoría automatizada y Deal Flow comercial",
       finance_desc: "Despliegue oficiales de cumplimiento de IA que revisen transacciones en tiempo real bajo normativas vigentes, elaborando informes de auditoría listos para su uso.",
       finance_metric: "Reduzca el tiempo de preparación de auditorías regulatorias en un 80% usando agentes autónomos.",
@@ -1015,9 +1113,15 @@ export const translations = {
       cta: "Solicitar caso de estudio"
     },
     metrics: {
+      tag: "Impacto",
+      title: "Resultados Medibles",
+      subtitle: "Nuestros pipelines de IA diseñados a medida ofrecen mejoras inmediatas de eficiencia, reducción de costos y ciclos de decisión acelerados.",
       val1: "De reducción de carga de trabajo manual",
+      desc1: "Libere valiosas horas de su equipo automatizando el ingreso repetitivo de datos, tareas administrativas y flujos de soporte.",
       val2: "Ciclos de decisión más rápidos",
-      val3: "De ahorro en costos operativos"
+      desc2: "Acelere las aprobaciones, clasifique incidencias críticas de inmediato y acceda a información clave del cliente en segundos.",
+      val3: "De ahorro en costos operativos",
+      desc3: "Reduzca el trabajo manual redundante, elimine errores operativos y optimice los costos de licenciamiento mediante agentes autónomos."
     },
     trust: {
       tag: "Confianza del Cliente",
@@ -1111,6 +1215,26 @@ export const translations = {
       cta_call: "Umów rozmowę strategiczną",
       cta_products: "Poznaj produkty AI",
       terminal_title: "dmai://dzienniki-wykonania-agentow"
+    },
+    about: {
+      tag: "O Nas",
+      title: "Wspieranie przyszłości dzięki innowacjom napędzanym przez AI",
+      subtitle1: "W Digi Mabble wierzymy, że sztuczna inteligencja to nie tylko modne słowo — to transformacyjna siła dla firm każdej wielkości.",
+      subtitle2: "Naszą misją jest budowanie inteligentnych, zorientowanych na człowieka systemów.",
+      btn_more: "Zobacz Więcej",
+      btn_less: "Ukryj",
+      expanded_title1: "Nasza Wizja",
+      expanded_desc1: "Przewodzenie globalnej transformacji w kierunku autonomicznych infrastruktur korporacyjnych, umożliwiających firmom działanie na najwyższym poziomie.",
+      expanded_title2: "Nasze Wartości",
+      expanded_desc2: "Oparte na zgodności z RODO, pełnym zarządzaniu danymi, niezawodności i procesach wspierających zespoły ludzkie.",
+      stat1_num: "2k+",
+      stat1_lbl: "Udane Wdrożenia",
+      stat2_num: "95%",
+      stat2_lbl: "Zadowolenie Klientów",
+      stat3_num: "40+",
+      stat3_lbl: "Nagrody i Wyróżnienia",
+      stat4_num: "73%",
+      stat4_lbl: "Wzrost i Ekspansja"
     },
     tech: {
       tag: "Nasz Stack Technologiczny",
@@ -1268,10 +1392,10 @@ export const translations = {
       tag: "Wdrożenia branżowe",
       title: "Procesy AI w Praktyce",
       subtitle: "Zobacz, jak zespoły operacyjne optymalizują czas pracy i obniżają koszty dzięki naszym agentom AI.",
-      tab1: "🏦 Automatyzacja finansów",
-      tab2: "🏥 Przepływy w medycynie",
-      tab3: "🛒 Operacje e-commerce",
-      tab4: "🏢 Operacje wewnętrzne",
+      tab1: "Automatyzacja finansów",
+      tab2: "Przepływy w medycynie",
+      tab3: "Operacje e-commerce",
+      tab4: "Operacje wewnętrzne",
       finance_title: "Automatyczne Przygotowanie Audytu & Deal Flow",
       finance_desc: "Wdrażaj agentów AI, którzy na bieżąco analizują zapisy w księgach pod kątem zgodności z przepisami, przygotowując raporty audytowe.",
       finance_metric: "Skróć czas przygotowania raportów zgodności o 80% dzięki autonomicznym agentom AI.",
@@ -1303,9 +1427,15 @@ export const translations = {
       cta: "Poproś o Case Study"
     },
     metrics: {
+      tag: "Wpływ",
+      title: "Mierzalne Wyniki",
+      subtitle: "Nasze niestandardowe systemy AI zapewniają natychmiastowy wzrost wydajności, redukcję kosztów ogólnych i szybsze cykle decyzyjne.",
       val1: "Mniej pracy wykonywanej ręcznie",
+      desc1: "Zaoszczędź cenne godziny zespołu dzięki automatyzacji powtarzalnego wprowadzania danych, zadań biurowych i rutynowych procesów.",
       val2: "Szybsze cykle podejmowania decyzji",
-      val3: "Oszczędności kosztów operacyjnych"
+      desc2: "Przyspiesz proces akceptacji, natychmiast kategoryzuj zgłoszenia o wysokim priorytecie i pobieraj dane w kilka sekund.",
+      val3: "Oszczędności kosztów operacyjnych",
+      desc3: "Zminimalizuj koszty operacyjne, wyeliminuj błędy wykonawcze i zoptymalizuj wydatki dzięki modularnym agentom AI."
     },
     trust: {
       tag: "Zaufanie Klientów",

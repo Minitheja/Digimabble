@@ -1,5 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { translations } from './translations.js';
+import {
+  Bot, Sliders, Brain, Target, MessageSquare, Mail, Store,
+  Calendar, Megaphone, Rocket, Mic, CalendarDays, Smartphone,
+  Check, CheckCircle2, MapPin, Phone, X, ArrowUp
+} from 'lucide-react';
 
 export default function App() {
   // --- Language State ---
@@ -40,6 +45,7 @@ export default function App() {
     }
   }, [lang]);
 
+
   // --- Scroll State & ScrollSpy ---
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('');
@@ -51,7 +57,7 @@ export default function App() {
       setShowScrollTop(window.scrollY > 300);
 
       // ScrollSpy
-      const sections = ['platform', 'products', 'usecases', 'faq', 'testimonials', 'contact'];
+      const sections = ['about', 'platform', 'products', 'usecases', 'faq', 'testimonials', 'contact'];
       const scrollPosition = window.scrollY + 180; // Offset for header threshold
 
       if (window.scrollY < 100) {
@@ -290,7 +296,7 @@ export default function App() {
 
           <nav className={`nav-menu ${isMobileMenuOpen ? 'open' : ''}`}>
             <a href="#" className={`nav-link ${activeSection === 'home' || activeSection === '' ? 'active' : ''}`} onClick={() => { setActiveSection('home'); setIsMobileMenuOpen(false); }}>{t('nav.home')}</a>
-            <a href="#" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`} onClick={(e) => { e.preventDefault(); setActiveSection('about'); setIsMobileMenuOpen(false); }}>{t('nav.about')}</a>
+            <a href="#about" className={`nav-link ${activeSection === 'about' ? 'active' : ''}`} onClick={() => { setActiveSection('about'); setIsMobileMenuOpen(false); }}>{t('nav.about')}</a>
             <a href="#platform" className={`nav-link ${activeSection === 'platform' ? 'active' : ''}`} onClick={() => { setActiveSection('platform'); setIsMobileMenuOpen(false); }}>{t('nav.platform')}</a>
             <a href="#products" className={`nav-link ${activeSection === 'products' ? 'active' : ''}`} onClick={() => { setActiveSection('products'); setIsMobileMenuOpen(false); }}>{t('nav.products')}</a>
             <a href="#usecases" className={`nav-link ${activeSection === 'usecases' ? 'active' : ''}`} onClick={() => { setActiveSection('usecases'); setIsMobileMenuOpen(false); }}>{t('nav.usecases')}</a>
@@ -363,13 +369,13 @@ export default function App() {
 
           <div className="hero-visual">
             <div className="mockup-container">
-              <div className="mockup-header">
+              <div className="mockup-terminal-header">
                 <span className="dot-red"></span>
                 <span className="dot-yellow"></span>
                 <span className="dot-green"></span>
                 <div className="mockup-address">{t('hero.terminal_title')}</div>
               </div>
-              <div className="mockup-body" ref={terminalBodyRef}>
+              <div className="mockup-terminal-body" ref={terminalBodyRef}>
                 {activeLogs.map((log, index) => (
                   <div className="terminal-line" key={index}>
                     <span className="terminal-prompt">$</span>
@@ -442,6 +448,58 @@ export default function App() {
         </div>
       </section>
 
+      {/* ABOUT US SECTION */}
+      <section id="about" className="section section-alt">
+        <div className="container">
+          <div className="text-center mb-5">
+            <span className="section-tag">{t('about.tag')}</span>
+            <h2 className="section-title">{t('about.title')}</h2>
+            <p className="section-subtitle">
+              {t('about.subtitle1')}
+              <br className="desktop-br" />
+              {t('about.subtitle2')}
+            </p>
+          </div>
+
+          <div className="about-visual-container">
+            <div className="about-image-wrapper">
+              <img src="/assets/team-photo.png" alt="Digi Mabble Team" className="about-team-img" />
+            </div>
+
+            <div className="about-actions-wrapper">
+              <a 
+                href="/about.html" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-secondary about-view-more-btn"
+                style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}
+              >
+                {t('about.btn_more')}
+              </a>
+            </div>
+          </div>
+
+          <div className="about-stats-grid">
+            <div className="about-stat-card">
+              <div className="about-stat-num">{t('about.stat1_num')}</div>
+              <div className="about-stat-lbl">{t('about.stat1_lbl')}</div>
+            </div>
+            <div className="about-stat-card">
+              <div className="about-stat-num">{t('about.stat2_num')}</div>
+              <div className="about-stat-lbl">{t('about.stat2_lbl')}</div>
+            </div>
+            <div className="about-stat-card">
+              <div className="about-stat-num">{t('about.stat3_num')}</div>
+              <div className="about-stat-lbl">{t('about.stat3_lbl')}</div>
+            </div>
+            <div className="about-stat-card">
+              <div className="about-stat-num">{t('about.stat4_num')}</div>
+              <div className="about-stat-lbl">{t('about.stat4_lbl')}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CORE CAPABILITIES */}
       <section id="platform" className="section">
         <div className="container">
@@ -453,17 +511,17 @@ export default function App() {
 
           <div className="capabilities-grid">
             <div className="card">
-              <div className="capability-icon">🤖</div>
+              <div className="capability-icon"><Bot size={28} /></div>
               <h3 className="capability-title">{t('platform.card1_title')}</h3>
               <p className="capability-desc">{t('platform.card1_desc')}</p>
             </div>
             <div className="card">
-              <div className="capability-icon">⚙️</div>
+              <div className="capability-icon"><Sliders size={28} /></div>
               <h3 className="capability-title">{t('platform.card2_title')}</h3>
               <p className="capability-desc">{t('platform.card2_desc')}</p>
             </div>
             <div className="card">
-              <div className="capability-icon">🧠</div>
+              <div className="capability-icon"><Brain size={28} /></div>
               <h3 className="capability-title">{t('platform.card3_title')}</h3>
               <p className="capability-desc">{t('platform.card3_desc')}</p>
             </div>
@@ -528,20 +586,20 @@ export default function App() {
               {/* CRM */}
               <div className={`prod-view ${activeProductTab === 'prod-crm' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🎯</div>
+                  <div className="prod-view-icon"><Target size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view1_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view1_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view1_feat1')}</h5>
                       <p>{t('products.view1_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view1_feat2')}</h5>
                       <p>{t('products.view1_feat2_desc')}</p>
@@ -569,20 +627,20 @@ export default function App() {
               {/* Chatbots */}
               <div className={`prod-view ${activeProductTab === 'prod-chatbot' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">💬</div>
+                  <div className="prod-view-icon"><MessageSquare size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view2_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view2_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view2_feat1')}</h5>
                       <p>{t('products.view2_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view2_feat2')}</h5>
                       <p>{t('products.view2_feat2_desc')}</p>
@@ -610,20 +668,20 @@ export default function App() {
               {/* Email */}
               <div className={`prod-view ${activeProductTab === 'prod-email' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">✉️</div>
+                  <div className="prod-view-icon"><Mail size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view3_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view3_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view3_feat1')}</h5>
                       <p>{t('products.view3_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view3_feat2')}</h5>
                       <p>{t('products.view3_feat2_desc')}</p>
@@ -642,7 +700,7 @@ export default function App() {
                     </div>
                   </div>
                   <div className="prod-view-actions">
-                    <a href="#platform" className="btn btn-secondary">{t('products.view_more')}</a>
+                    <a href="/ai-email-management.html" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">{t('products.view_more')}</a>
                     <button className="btn btn-primary" onClick={() => setIsDemoModalOpen(true)}>{t('products.view_cta')}</button>
                   </div>
                 </div>
@@ -651,20 +709,20 @@ export default function App() {
               {/* Small Business */}
               <div className={`prod-view ${activeProductTab === 'prod-smallbiz' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🏪</div>
+                  <div className="prod-view-icon"><Store size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view4_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view4_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view4_feat1')}</h5>
                       <p>{t('products.view4_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view4_feat2')}</h5>
                       <p>{t('products.view4_feat2_desc')}</p>
@@ -692,20 +750,20 @@ export default function App() {
               {/* Meeting */}
               <div className={`prod-view ${activeProductTab === 'prod-meeting' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">📅</div>
+                  <div className="prod-view-icon"><Calendar size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view5_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view5_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view5_feat1')}</h5>
                       <p>{t('products.view5_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view5_feat2')}</h5>
                       <p>{t('products.view5_feat2_desc')}</p>
@@ -733,20 +791,20 @@ export default function App() {
               {/* Social */}
               <div className={`prod-view ${activeProductTab === 'prod-social' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">📣</div>
+                  <div className="prod-view-icon"><Megaphone size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view6_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view6_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view6_feat1')}</h5>
                       <p>{t('products.view6_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view6_feat2')}</h5>
                       <p>{t('products.view6_feat2_desc')}</p>
@@ -774,20 +832,20 @@ export default function App() {
               {/* SaaS */}
               <div className={`prod-view ${activeProductTab === 'prod-saas' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🚀</div>
+                  <div className="prod-view-icon"><Rocket size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view7_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view7_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view7_feat1')}</h5>
                       <p>{t('products.view7_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view7_feat2')}</h5>
                       <p>{t('products.view7_feat2_desc')}</p>
@@ -815,20 +873,20 @@ export default function App() {
               {/* Voice */}
               <div className={`prod-view ${activeProductTab === 'prod-voice' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🎙️</div>
+                  <div className="prod-view-icon"><Mic size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view8_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view8_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view8_feat1')}</h5>
                       <p>{t('products.view8_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view8_feat2')}</h5>
                       <p>{t('products.view8_feat2_desc')}</p>
@@ -856,20 +914,20 @@ export default function App() {
               {/* Booking */}
               <div className={`prod-view ${activeProductTab === 'prod-booking' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">🗓️</div>
+                  <div className="prod-view-icon"><CalendarDays size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view9_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view9_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view9_feat1')}</h5>
                       <p>{t('products.view9_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view9_feat2')}</h5>
                       <p>{t('products.view9_feat2_desc')}</p>
@@ -897,20 +955,20 @@ export default function App() {
               {/* Whatsapp & Telegram Bot */}
               <div className={`prod-view ${activeProductTab === 'prod-whatstele' ? 'active' : ''}`}>
                 <div className="prod-view-header">
-                  <div className="prod-view-icon">📱</div>
+                  <div className="prod-view-icon"><Smartphone size={24} /></div>
                   <h3 className="prod-view-title">{t('products.view10_title')}</h3>
                 </div>
                 <p className="prod-view-desc">{t('products.view10_desc')}</p>
                 <div className="prod-view-details">
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view10_feat1')}</h5>
                       <p>{t('products.view10_feat1_desc')}</p>
                     </div>
                   </div>
                   <div className="prod-detail-item">
-                    <span className="prod-detail-check">✓</span>
+                    <span className="prod-detail-check"><Check size={16} /></span>
                     <div className="prod-detail-text">
                       <h5>{t('products.view10_feat2')}</h5>
                       <p>{t('products.view10_feat2_desc')}</p>
@@ -1096,20 +1154,28 @@ export default function App() {
       </section>
 
       {/* METRICS SECTION */}
-      <section className="section section-alt">
+      <section id="metrics-section" className="section section-alt">
         <div className="container">
+          <div className="text-center mb-5">
+            <span className="section-tag">{t('metrics.tag')}</span>
+            <h2 className="section-title">{t('metrics.title')}</h2>
+            <p className="section-subtitle">{t('metrics.subtitle')}</p>
+          </div>
           <div className="metrics-row">
             <div className="metric-card">
               <div className="metric-val"><span>↓</span> 60-80%</div>
               <div className="metric-lbl">{t('metrics.val1')}</div>
+              <p className="metric-desc">{t('metrics.desc1')}</p>
             </div>
             <div className="metric-card">
               <div className="metric-val"><span>⚡</span> 3x</div>
               <div className="metric-lbl">{t('metrics.val2')}</div>
+              <p className="metric-desc">{t('metrics.desc2')}</p>
             </div>
             <div className="metric-card">
               <div className="metric-val"><span>💰</span> 40%</div>
               <div className="metric-lbl">{t('metrics.val3')}</div>
+              <p className="metric-desc">{t('metrics.desc3')}</p>
             </div>
           </div>
         </div>
@@ -1377,7 +1443,6 @@ export default function App() {
             <a href="#" className="logo mb-2">
               <img src="/assets/logo-white.png" alt="DIGI MABBLE Logo" className="logo-img" />
             </a>
-            <p>{t('footer.desc')}</p>
             <div className="social-links">
               <a href="https://www.linkedin.com/company/digi-mabble" target="_blank" rel="noopener noreferrer" className="social-icon" aria-label="LinkedIn">
                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" width="22" height="22" xmlns="http://www.w3.org/2000/svg">
